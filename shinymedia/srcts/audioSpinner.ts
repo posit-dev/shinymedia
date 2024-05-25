@@ -5,7 +5,6 @@ class AudioSpinnerElement extends HTMLElement {
   #analyzer!: AnalyserNode;
   #dataArray!: Float32Array;
   #smoother!: Smoother<Float32Array>;
-  #lastKnownSeconds = 0;
 
   constructor() {
     super();
@@ -153,11 +152,7 @@ class AudioSpinnerElement extends HTMLElement {
       if (step === steps - 1) {
         this.#drawPie(width, height, 0, Math.PI * 2, this_radius, thickness);
       } else {
-        const seconds =
-          this.#lastKnownSeconds && this.#audio.paused && !this.#audio.ended
-            ? this.#lastKnownSeconds
-            : new Date().getTime() / 1000;
-        this.#lastKnownSeconds = seconds;
+        const seconds = this.#audio.currentTime || 0;
         const startAngle = (seconds * spinVelocity) % (Math.PI * 2);
         for (let blade = 0; blade < blades; blade++) {
           const angleOffset = ((Math.PI * 2) / blades) * blade;

@@ -281,7 +281,6 @@ var AudioSpinnerElement = class extends HTMLElement {
   #analyzer;
   #dataArray;
   #smoother;
-  #lastKnownSeconds = 0;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -408,8 +407,7 @@ var AudioSpinnerElement = class extends HTMLElement {
       if (step === steps - 1) {
         this.#drawPie(width, height, 0, Math.PI * 2, this_radius, thickness);
       } else {
-        const seconds = this.#lastKnownSeconds && this.#audio.paused && !this.#audio.ended ? this.#lastKnownSeconds : (/* @__PURE__ */ new Date()).getTime() / 1e3;
-        this.#lastKnownSeconds = seconds;
+        const seconds = this.#audio.currentTime || 0;
         const startAngle = seconds * spinVelocity % (Math.PI * 2);
         for (let blade = 0; blade < blades; blade++) {
           const angleOffset = Math.PI * 2 / blades * blade;
@@ -522,7 +520,7 @@ var VideoClipperBinding = class extends Shiny.InputBinding {
     el.addEventListener("data", handler);
     const handler2 = (ev) => {
       if (typeof el.dataset.resetOnRecord !== "undefined") {
-        this.#lastKnownValue.set(el, void 0);
+        this.#lastKnownValue.set(el, null);
         callback(true);
       }
     };

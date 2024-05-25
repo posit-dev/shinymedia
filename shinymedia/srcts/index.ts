@@ -34,7 +34,7 @@ class VideoClipperBinding extends Shiny.InputBinding {
 
     const handler2 = (ev: Event) => {
       if (typeof el.dataset.resetOnRecord !== "undefined") {
-        this.#lastKnownValue.set(el, undefined);
+        this.#lastKnownValue.set(el, null);
         callback(true);
       }
     };
