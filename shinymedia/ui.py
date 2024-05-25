@@ -96,6 +96,8 @@ def audio_spinner(
     radius_factor: float = 1.8,
     steps: float = 3,
     blades: float = 3,
+    width: str = "125px",
+    height: str = "125px",
     **kwargs,
 ):
     if os.path.isfile(src):
@@ -106,7 +108,7 @@ def audio_spinner(
         "audio-spinner",
         multimodal_dep,
         src=src,
-        style="width: 125px; height: 125px;",
+        style=f"width: {width}; height: {height};",
         class_="mx-auto",
         **{
             "data-spin-velocity": spin_velocity,
@@ -117,4 +119,5 @@ def audio_spinner(
             "data-steps": steps,
             "data-blades": blades,
         },
+        **kwargs,
     )
