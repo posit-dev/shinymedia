@@ -83,6 +83,7 @@ var VideoClipperElement = class extends HTMLElement {
         this.buttonStop = findButton(".stop-button");
         this.#setEnabledButton();
         this.buttonRecord.addEventListener("click", () => {
+          this.dispatchEvent(new CustomEvent("recordstart"));
           this.#setEnabledButton(this.buttonStop);
           this._beginRecord();
         });
@@ -317,11 +318,13 @@ var AudioSpinnerElement = class extends HTMLElement {
       this.#draw();
     });
     this.#audio.onended = () => {
-      this.style.transition = "opacity 0.5s 1s";
-      this.classList.add("fade");
-      this.addEventListener("transitionend", () => {
-        this.remove();
-      });
+      if (typeof this.dataset.autodismiss !== "undefined") {
+        this.style.transition = "opacity 0.5s 1s";
+        this.classList.add("fade");
+        this.addEventListener("transitionend", () => {
+          this.remove();
+        });
+      }
     };
     const canvasSlot = this.shadowRoot.querySelector(
       "slot[name=canvas]"
@@ -367,7 +370,9 @@ var AudioSpinnerElement = class extends HTMLElement {
       return dataArray2;
     });
     this.#draw();
-    this.#audio.play();
+    if (typeof this.dataset.autoplay !== "undefined") {
+      this.#audio.play();
+    }
   }
   disconnectedCallback() {
     if (!this.#audio.paused) {
@@ -512,11 +517,19 @@ var VideoClipperBinding = class extends Shiny.InputBinding {
       callback(true);
     };
     el.addEventListener("data", handler);
-    this.#handlers.set(el, handler);
+    const handler2 = (ev) => {
+      if (typeof el.dataset.resetOnRecord !== "undefined") {
+        this.#lastKnownValue.set(el, void 0);
+        callback(true);
+      }
+    };
+    el.addEventListener("recordstart", handler2);
+    this.#handlers.set(el, [handler, handler2]);
   }
   unsubscribe(el) {
-    const handler = this.#handlers.get(el);
-    el.removeEventListener("data", handler);
+    const handlers = this.#handlers.get(el);
+    el.removeEventListener("data", handlers[0]);
+    el.removeEventListener("recordstart", handlers[1]);
     this.#handlers.delete(el);
   }
 };

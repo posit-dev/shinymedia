@@ -8,7 +8,10 @@ import "./audioSpinner";
 // Create input binding to send video clips from <video-clipper> to Shiny
 class VideoClipperBinding extends Shiny.InputBinding {
   #lastKnownValue = new WeakMap<HTMLElement, unknown>();
-  #handlers = new WeakMap<HTMLElement, (ev: Event) => Promise<void>>();
+  #handlers = new WeakMap<
+    HTMLElement,
+    [(ev: Event) => Promise<void>, (ev: Event) => void]
+  >();
 
   find(scope: BindScope): JQuery<HTMLElement> {
     return $(scope).find("video-clipper");
@@ -28,12 +31,22 @@ class VideoClipperBinding extends Shiny.InputBinding {
       callback(true);
     };
     el.addEventListener("data", handler);
-    this.#handlers.set(el, handler);
+
+    const handler2 = (ev: Event) => {
+      if (typeof el.dataset.resetOnRecord !== "undefined") {
+        this.#lastKnownValue.set(el, undefined);
+        callback(true);
+      }
+    };
+    el.addEventListener("recordstart", handler2);
+
+    this.#handlers.set(el, [handler, handler2]);
   }
 
   unsubscribe(el: HTMLElement): void {
-    const handler = this.#handlers.get(el)!;
-    el.removeEventListener("data", handler);
+    const handlers = this.#handlers.get(el)!;
+    el.removeEventListener("data", handlers[0]);
+    el.removeEventListener("recordstart", handlers[1]);
     this.#handlers.delete(el);
   }
 }

@@ -94,6 +94,7 @@ class VideoClipperElement extends HTMLElement {
         this.#setEnabledButton();
 
         this.buttonRecord.addEventListener("click", () => {
+          this.dispatchEvent(new CustomEvent("recordstart"));
           this.#setEnabledButton(this.buttonStop);
           this._beginRecord();
         });

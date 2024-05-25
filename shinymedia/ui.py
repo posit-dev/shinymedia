@@ -23,7 +23,7 @@ multimodal_dep = HTMLDependency(
 )
 
 
-def input_video_clip(id: str, **kwargs: TagAttrValue):
+def input_video_clip(id: str, *, reset_on_record: True, **kwargs: TagAttrValue):
     id = module.resolve_id(id)
 
     return ui.Tag(
@@ -82,6 +82,7 @@ def input_video_clip(id: str, **kwargs: TagAttrValue):
             **{"aria-label": "Recording controls"},
         ),
         id=id,
+        **{"data-reset-on-record": reset_on_record},
         **kwargs,
     )
 
@@ -98,6 +99,8 @@ def audio_spinner(
     blades: float = 3,
     width: str = "125px",
     height: str = "125px",
+    autoplay: bool = True,
+    autodismiss: bool = True,
     **kwargs: TagAttrValue,
 ):
     if os.path.isfile(src):
@@ -118,6 +121,8 @@ def audio_spinner(
             "data-radius-factor": radius_factor,
             "data-steps": steps,
             "data-blades": blades,
+            "data-autoplay": autoplay,
+            "data-autodismiss": autodismiss,
         },
         **kwargs,
     )

@@ -46,11 +46,13 @@ class AudioSpinnerElement extends HTMLElement {
       this.#draw();
     });
     this.#audio.onended = () => {
-      this.style.transition = "opacity 0.5s 1s";
-      this.classList.add("fade");
-      this.addEventListener("transitionend", () => {
-        this.remove();
-      });
+      if (typeof this.dataset.autodismiss !== "undefined") {
+        this.style.transition = "opacity 0.5s 1s";
+        this.classList.add("fade");
+        this.addEventListener("transitionend", () => {
+          this.remove();
+        });
+      }
     };
 
     // Create <canvas>. This will be the target of our vizualization.
@@ -104,7 +106,9 @@ class AudioSpinnerElement extends HTMLElement {
 
     this.#draw();
 
-    this.#audio.play();
+    if (typeof this.dataset.autoplay !== "undefined") {
+      this.#audio.play();
+    }
   }
 
   disconnectedCallback() {
