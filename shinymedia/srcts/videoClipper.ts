@@ -151,7 +151,12 @@ class VideoClipperElement extends HTMLElement {
       this.video.style.aspectRatio = "";
     }
     this.video.srcObject = this.cameraStream!;
-    this.video.play();
+    try {
+      await this.video.play();
+      this.video.style.aspectRatio = "";
+    } catch (err) {
+      console.error("Error playing video: ", err);
+    }
 
     return {
       cameraId: this.cameraStream.getVideoTracks()[0].getSettings().deviceId!,
