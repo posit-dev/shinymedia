@@ -324,6 +324,9 @@ var AudioSpinnerElement = class extends HTMLElement {
         this.addEventListener("transitionend", () => {
           this.remove();
         });
+      } else {
+        this.#audio.pause();
+        this.#audio.currentTime = 0;
       }
     };
     const canvasSlot = this.shadowRoot.querySelector(
