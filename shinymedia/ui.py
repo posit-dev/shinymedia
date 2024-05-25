@@ -23,7 +23,7 @@ multimodal_dep = HTMLDependency(
 )
 
 
-def input_video_clip(id: str, *, reset_on_record: True, **kwargs: TagAttrValue):
+def input_video_clip(id: str, *, reset_on_record: bool = True, **kwargs: TagAttrValue):
     id = module.resolve_id(id)
 
     return ui.Tag(
