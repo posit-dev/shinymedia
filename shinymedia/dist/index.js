@@ -526,3 +526,33 @@ async function base64(blob) {
   }
   return btoa(results.join(""));
 }
+function bustAutoPlaySuppression() {
+  const audioContext = new AudioContext();
+  const buffer = audioContext.createBuffer(
+    1,
+    audioContext.sampleRate * 105,
+    audioContext.sampleRate
+  );
+  const destination = audioContext.createMediaStreamDestination();
+  const source = audioContext.createBufferSource();
+  source.buffer = buffer;
+  source.connect(destination);
+  source.start();
+  const audioElement = document.createElement("audio");
+  audioElement.controls = true;
+  audioElement.autoplay = true;
+  audioElement.style.display = "none";
+  audioElement.addEventListener("play", () => {
+    audioElement.remove();
+  });
+  audioElement.srcObject = destination.stream;
+  document.body.appendChild(audioElement);
+  document.body.addEventListener(
+    "click",
+    () => {
+      audioElement.play();
+    },
+    { capture: true, once: true }
+  );
+}
+document.addEventListener("DOMContentLoaded", bustAutoPlaySuppression);

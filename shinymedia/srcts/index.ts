@@ -55,3 +55,58 @@ async function base64(blob: Blob): Promise<string> {
   }
   return btoa(results.join(""));
 }
+
+function bustAutoPlaySuppression() {
+  // Create an AudioContext
+  const audioContext = new AudioContext();
+
+  // Create a buffer of 0.5 seconds of silence
+  const buffer = audioContext.createBuffer(
+    1,
+    audioContext.sampleRate * 105,
+    audioContext.sampleRate
+  );
+
+  // Fill the buffer with silence (it is already initialized to 0, so this step is not strictly necessary)
+  // const channelData = buffer.getChannelData(0);
+  // for (let i = 0; i < buffer.length; i++) {
+  //     channelData[i] = 0;
+  // }
+
+  // Create a MediaStreamAudioDestinationNode
+  const destination = audioContext.createMediaStreamDestination();
+
+  // Create an AudioBufferSourceNode and set its buffer to the silent buffer
+  const source = audioContext.createBufferSource();
+  source.buffer = buffer;
+
+  // Connect the source to the destination
+  source.connect(destination);
+
+  // Start the source
+  source.start();
+
+  // Create an <audio> element
+  const audioElement = document.createElement("audio");
+  audioElement.controls = true; // Add controls to the audio element for playback
+  audioElement.autoplay = true; // Autoplay the audio element
+  audioElement.style.display = "none"; // Hide the audio element
+  audioElement.addEventListener("play", () => {
+    audioElement.remove();
+  });
+
+  // Set the srcObject of the <audio> element to the MediaStream from the destination node
+  audioElement.srcObject = destination.stream;
+
+  // Append the <audio> element to the body (or any other desired location in the DOM)
+  document.body.appendChild(audioElement);
+
+  document.body.addEventListener(
+    "click",
+    () => {
+      audioElement.play();
+    },
+    { capture: true, once: true }
+  );
+}
+document.addEventListener("DOMContentLoaded", bustAutoPlaySuppression);
