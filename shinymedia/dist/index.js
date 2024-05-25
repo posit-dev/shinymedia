@@ -369,6 +369,11 @@ var AudioSpinnerElement = class extends HTMLElement {
     this.#draw();
     this.#audio.play();
   }
+  disconnectedCallback() {
+    if (!this.#audio.paused) {
+      this.#audio.pause();
+    }
+  }
   #draw() {
     if (!this.isConnected) {
       return;
