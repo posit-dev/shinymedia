@@ -1,0 +1,9 @@
+__pycache__/
+node_modules/
+/.venv/
+/_dev/
+/rsconnect-python/
+/.env
+.DS_Store
+/build/
+**.egg-info/

@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=60", "wheel", "setuptools_scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+include = ["shinymedia"]
+
+[project]
+name = "shinymedia"
+description = "Extends the Shiny web framework with controls for multimedia input/output."
+readme = "README.md"
+keywords = ["video", "audio", "shiny"]
+license.file = "LICENSE"
+authors = [
+    { name = "Joe Cheng", email = "joe@posit.co" },
+]
+dynamic = ["version"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup :: HTML",
+    "Topic :: Scientific/Engineering :: Visualization"
+]
+dependencies = [
+    "faicons",
+    "htmltools",
+    "shiny"
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "isort",
+    "wheel",
+]
+[project.urls]
+homepage = "https://github.com/jcheng5/shinymedia"
+documentation = "https://github.com/jcheng5/shinymedia"
+
+[tool.flake8]
+exclude = ["docs", ".venv", "tests/*"]
+
+ignore = [
+    "E402",    # module level import not at top of file
+    "E501",    # line too long (maximum 100 characters)
+    "W503",    # line break before binary operator
+    "F811",    # redefinition of unused name
+    "E203",    # whitespace before ':'
+    "F401",    # 'module' imported but unused
+    "F841",    # local variable 'name' is assigned to but never used
+    "E702",    # multiple statements on one line (semicolon)
+    "E704",    # multiple statements on one line (def)
+]
+
+max-line-length = 100
+
+[tool.black]
+line-length = 100

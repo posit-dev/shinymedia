@@ -1,0 +1,29 @@
+{
+  "name": "multimodal",
+  "version": "1.0.0",
+  "description": "This is a simple script that takes a video file as input, and turns it into text plus images in a form GPT-4o can understand. The response from the model is then read aloud.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild srcts/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "watch": "esbuild srcts/index.ts --bundle --platform=node --outfile=dist/index.js --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcheng5/multimodal.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jcheng5/multimodal/issues"
+  },
+  "homepage": "https://github.com/jcheng5/multimodal#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jquery": "^3.5.30",
+    "@types/rstudio-shiny": "https://github.com/rstudio/shiny#v1.7.0",
+    "esbuild": "^0.21.3",
+    "typescript": "^5.4.5"
+  }
+}
