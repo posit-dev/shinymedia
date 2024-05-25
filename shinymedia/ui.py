@@ -1,4 +1,6 @@
+import base64
 import math
+import os
 from pathlib import Path
 
 from faicons import icon_svg
@@ -94,8 +96,12 @@ def audio_spinner(
     radius_factor: float = 1.8,
     steps: float = 3,
     blades: float = 3,
-    **kwargs
+    **kwargs,
 ):
+    if os.path.isfile(src):
+        with open(src, "rb") as f:
+            src = f"data:audio/mpeg;base64,{base64.b64encode(f.read()).decode('utf-8')}"
+
     return ui.Tag(
         "audio-spinner",
         multimodal_dep,
