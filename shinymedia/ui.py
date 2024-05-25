@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 from faicons import icon_svg
-from htmltools import HTMLDependency
+from htmltools import HTMLDependency, TagAttrValue
 from shiny import module, ui
 
 __all__ = (
@@ -23,7 +23,7 @@ multimodal_dep = HTMLDependency(
 )
 
 
-def input_video_clip(id: str, **kwargs):
+def input_video_clip(id: str, **kwargs: TagAttrValue):
     id = module.resolve_id(id)
 
     return ui.Tag(
@@ -98,7 +98,7 @@ def audio_spinner(
     blades: float = 3,
     width: str = "125px",
     height: str = "125px",
-    **kwargs,
+    **kwargs: TagAttrValue,
 ):
     if os.path.isfile(src):
         with open(src, "rb") as f:
