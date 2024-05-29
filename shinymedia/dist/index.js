@@ -286,6 +286,8 @@ var AudioSpinnerElement = class extends HTMLElement {
   #analyzer;
   #dataArray;
   #smoother;
+  #secondsOffset = 0;
+  #tooltip;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -321,7 +323,7 @@ var AudioSpinnerElement = class extends HTMLElement {
     this.#audio.addEventListener("play", () => {
       this.#draw();
     });
-    this.#audio.onended = () => {
+    this.#audio.addEventListener("ended", () => {
       if (typeof this.dataset.autodismiss !== "undefined") {
         this.style.transition = "opacity 0.5s 1s";
         this.classList.add("fade");
@@ -329,10 +331,11 @@ var AudioSpinnerElement = class extends HTMLElement {
           this.remove();
         });
       } else {
+        this.#secondsOffset += this.#audio.currentTime;
         this.#audio.pause();
         this.#audio.currentTime = 0;
       }
-    };
+    });
     const canvasSlot = this.shadowRoot.querySelector(
       "slot[name=canvas]"
     );
@@ -378,13 +381,40 @@ var AudioSpinnerElement = class extends HTMLElement {
     });
     this.#draw();
     if (typeof this.dataset.autoplay !== "undefined") {
-      this.#audio.play();
+      this.#audio.play().catch((err) => {
+        this.#showTooltip();
+      });
+      this.#showTooltip();
     }
   }
   disconnectedCallback() {
+    if (this.#tooltip) {
+      this.#tooltip.dispose();
+      this.#tooltip = void 0;
+    }
     if (!this.#audio.paused) {
       this.#audio.pause();
     }
+  }
+  #showTooltip() {
+    const isMobile = /Mobi/.test(navigator.userAgent);
+    const gesture = isMobile ? "Tap" : "Click";
+    this.#tooltip = new window.bootstrap.Tooltip(this, {
+      title: `${gesture} to play`,
+      trigger: "manual",
+      placement: "right"
+    });
+    this.#audio.addEventListener(
+      "play",
+      () => {
+        if (this.#tooltip) {
+          this.#tooltip.dispose();
+          this.#tooltip = void 0;
+        }
+      },
+      { once: true }
+    );
+    this.#tooltip.show();
   }
   #draw() {
     if (!this.isConnected) {
@@ -412,7 +442,7 @@ var AudioSpinnerElement = class extends HTMLElement {
       if (step === steps - 1) {
         this.#drawPie(width, height, 0, Math.PI * 2, this_radius, thickness);
       } else {
-        const seconds = this.#audio.currentTime || 0;
+        const seconds = (this.#audio.currentTime || 0) + this.#secondsOffset;
         const startAngle = seconds * spinVelocity % (Math.PI * 2);
         for (let blade = 0; blade < blades; blade++) {
           const angleOffset = Math.PI * 2 / blades * blade;

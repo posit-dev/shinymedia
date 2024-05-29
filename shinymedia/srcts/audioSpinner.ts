@@ -5,6 +5,8 @@ class AudioSpinnerElement extends HTMLElement {
   #analyzer!: AnalyserNode;
   #dataArray!: Float32Array;
   #smoother!: Smoother<Float32Array>;
+  #secondsOffset = 0;
+  #tooltip?: bootstrap.Tooltip;
 
   constructor() {
     super();
@@ -44,7 +46,7 @@ class AudioSpinnerElement extends HTMLElement {
     this.#audio.addEventListener("play", () => {
       this.#draw();
     });
-    this.#audio.onended = () => {
+    this.#audio.addEventListener("ended", () => {
       if (typeof this.dataset.autodismiss !== "undefined") {
         this.style.transition = "opacity 0.5s 1s";
         this.classList.add("fade");
@@ -52,10 +54,13 @@ class AudioSpinnerElement extends HTMLElement {
           this.remove();
         });
       } else {
+        // Use #secondsOffset to prevent the spinner from jumping when we move
+        // the playhead back to the start
+        this.#secondsOffset += this.#audio.currentTime;
         this.#audio.pause();
         this.#audio.currentTime = 0;
       }
-    };
+    });
 
     // Create <canvas>. This will be the target of our vizualization.
     const canvasSlot = this.shadowRoot!.querySelector(
@@ -109,14 +114,46 @@ class AudioSpinnerElement extends HTMLElement {
     this.#draw();
 
     if (typeof this.dataset.autoplay !== "undefined") {
-      this.#audio.play();
+      this.#audio.play().catch((err) => {
+        // Autoplay failed! Mobile Safari in particular requires a user gesture
+        // to play audio. We'll show a tooltip to the user to let them know they
+        // need to click/tap to play.
+        this.#showTooltip();
+      });
+      this.#showTooltip();
     }
   }
 
   disconnectedCallback() {
+    if (this.#tooltip) {
+      this.#tooltip.dispose();
+      this.#tooltip = undefined;
+    }
     if (!this.#audio.paused) {
       this.#audio.pause();
     }
+  }
+
+  #showTooltip() {
+    // Autoplay failed
+    const isMobile = /Mobi/.test(navigator.userAgent);
+    const gesture = isMobile ? "Tap" : "Click";
+    this.#tooltip = new window.bootstrap.Tooltip(this, {
+      title: `${gesture} to play`,
+      trigger: "manual",
+      placement: "right",
+    });
+    this.#audio.addEventListener(
+      "play",
+      () => {
+        if (this.#tooltip) {
+          this.#tooltip.dispose();
+          this.#tooltip = undefined;
+        }
+      },
+      { once: true }
+    );
+    this.#tooltip.show();
   }
 
   #draw() {
@@ -152,7 +189,7 @@ class AudioSpinnerElement extends HTMLElement {
       if (step === steps - 1) {
         this.#drawPie(width, height, 0, Math.PI * 2, this_radius, thickness);
       } else {
-        const seconds = this.#audio.currentTime || 0;
+        const seconds = (this.#audio.currentTime || 0) + this.#secondsOffset;
         const startAngle = (seconds * spinVelocity) % (Math.PI * 2);
         for (let blade = 0; blade < blades; blade++) {
           const angleOffset = ((Math.PI * 2) / blades) * blade;

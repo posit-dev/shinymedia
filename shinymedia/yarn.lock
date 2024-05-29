@@ -117,6 +117,11 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.21.3.tgz#899c03576c4c28c83228f0e64dfa10edae99c9a2"
   integrity sha512-xRxC0jaJWDLYvcUvjQmHCJSfMrgmUuvsoXgDeU/wTorQ1ngDdUBuFtgY3W1Pc5sprGAvZBtWdJX7RPg/iZZUqA==
 
+"@popperjs/core@^2.9.2":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
+
 "@types/bootstrap-datepicker@0.0.14":
   version "0.0.14"
   resolved "https://registry.yarnpkg.com/@types/bootstrap-datepicker/-/bootstrap-datepicker-0.0.14.tgz#89bc5816dd0b802bf8d4923cf5461e2c98cbb450"
@@ -130,6 +135,13 @@
   integrity sha512-LS05hVAAsX86qbHg7W+ydwBlNHrVCoFw6wEP3/uW4eYmRXl08bWmPeN/+onM+8qZTFfDgUlG/OItJI8SW972oQ==
   dependencies:
     "@types/jquery" "*"
+
+"@types/bootstrap@^5.2.10":
+  version "5.2.10"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.2.10.tgz#58506463bccc6602bc051487ad8d3a6458f94c6c"
+  integrity sha512-F2X+cd6551tep0MvVZ6nM8v7XgGN/twpdNDjqS1TUM7YFNEtQYWk+dKAnH+T1gr6QgCoGMPl487xw/9hXooa2g==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
 
 "@types/datatables.net@^1.10.19":
   version "1.12.0"

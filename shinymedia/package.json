@@ -21,6 +21,7 @@
   "homepage": "https://github.com/jcheng5/multimodal#readme",
   "dependencies": {},
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.30",
     "@types/rstudio-shiny": "https://github.com/rstudio/shiny#v1.7.0",
     "esbuild": "^0.21.3",
