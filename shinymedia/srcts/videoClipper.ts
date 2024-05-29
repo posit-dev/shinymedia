@@ -28,7 +28,7 @@ class VideoClipperElement extends HTMLElement {
             width: 100%;
             object-fit: cover;
             background-color: var(--video-clip-bg, black);
-            aspect-ratio: 16 / 9;
+            aspect-ratio: auto 16 / 9;
             border-radius: var(--video-clip-border-radius, var(--bs-border-radius-lg));
           }
           video.mirrored {
@@ -128,8 +128,8 @@ class VideoClipperElement extends HTMLElement {
     this.cameraStream = await navigator.mediaDevices.getUserMedia({
       video: {
         deviceId: cameraId || undefined,
-        facingMode: "user",
-        aspectRatio: 16 / 9,
+        // If cameraId is not specified, default to the selfie cam
+        facingMode: cameraId ? undefined : "user",
       },
       audio: {
         deviceId: micId || undefined,
