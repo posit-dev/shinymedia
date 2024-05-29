@@ -120,7 +120,6 @@ class AudioSpinnerElement extends HTMLElement {
         // need to click/tap to play.
         this.#showTooltip();
       });
-      this.#showTooltip();
     }
   }
 

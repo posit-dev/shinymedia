@@ -384,7 +384,6 @@ var AudioSpinnerElement = class extends HTMLElement {
       this.#audio.play().catch((err) => {
         this.#showTooltip();
       });
-      this.#showTooltip();
     }
   }
   disconnectedCallback() {
