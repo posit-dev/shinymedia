@@ -460,7 +460,7 @@ var AudioSpinnerElement = class extends HTMLElement {
   }
   #drawPie(width, height, startAngle, sweep, radius, thickness) {
     this.#ctx2d.beginPath();
-    this.#ctx2d.fillStyle = this.#canvas.computedStyleMap().get("color")?.toString();
+    this.#ctx2d.fillStyle = window.getComputedStyle(this.#canvas).color;
     if (!thickness) {
       this.#ctx2d.moveTo(width / 2, height / 2);
     }
