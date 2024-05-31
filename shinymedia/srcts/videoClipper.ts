@@ -219,7 +219,10 @@ class VideoClipperElement extends HTMLElement {
 
   _beginRecord() {
     // Create a MediaRecorder object
-    this.recorder = new MediaRecorder(this.cameraStream!, {});
+    this.recorder = new MediaRecorder(this.cameraStream!, {
+      videoBitsPerSecond: safeFloat(this.dataset.videoBitsPerSecond),
+      audioBitsPerSecond: safeFloat(this.dataset.audioBitsPerSecond),
+    });
 
     this.recorder.addEventListener("error", (e) => {
       console.error("MediaRecorder error:", (e as ErrorEvent).error);
@@ -258,3 +261,14 @@ class VideoClipperElement extends HTMLElement {
   }
 }
 customElements.define("video-clipper", VideoClipperElement);
+
+function safeFloat(value: string | undefined): number | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  const floatVal = parseFloat(value);
+  if (isNaN(floatVal)) {
+    return undefined;
+  }
+  return floatVal;
+}

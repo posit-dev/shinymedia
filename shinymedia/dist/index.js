@@ -168,7 +168,10 @@ var VideoClipperElement = class extends HTMLElement {
     });
   }
   _beginRecord() {
-    this.recorder = new MediaRecorder(this.cameraStream, {});
+    this.recorder = new MediaRecorder(this.cameraStream, {
+      videoBitsPerSecond: safeFloat(this.dataset.videoBitsPerSecond),
+      audioBitsPerSecond: safeFloat(this.dataset.audioBitsPerSecond)
+    });
     this.recorder.addEventListener("error", (e) => {
       console.error("MediaRecorder error:", e.error);
     });
@@ -199,6 +202,16 @@ var VideoClipperElement = class extends HTMLElement {
   }
 };
 customElements.define("video-clipper", VideoClipperElement);
+function safeFloat(value) {
+  if (value === void 0) {
+    return void 0;
+  }
+  const floatVal = parseFloat(value);
+  if (isNaN(floatVal)) {
+    return void 0;
+  }
+  return floatVal;
+}
 
 // srcts/avSettingsMenu.ts
 var DeviceChangeEvent = class extends CustomEvent {
@@ -545,10 +558,11 @@ var VideoClipperBinding = class extends Shiny.InputBinding {
   subscribe(el, callback) {
     const handler = async (ev) => {
       const blob = ev.data;
-      this.#lastKnownValue.set(
-        el,
-        `data:${blob.type};base64,${await base64(blob)}`
+      console.log(
+        `Recorded video of type ${blob.type} and size ${blob.size} bytes`
       );
+      const encoded = `data:${blob.type};base64,${await base64(blob)}`;
+      this.#lastKnownValue.set(el, encoded);
       callback(true);
     };
     el.addEventListener("data", handler);

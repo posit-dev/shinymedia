@@ -24,10 +24,11 @@ class VideoClipperBinding extends Shiny.InputBinding {
   subscribe(el: HTMLElement, callback: (value: boolean) => void): void {
     const handler = async (ev: Event) => {
       const blob = (ev as BlobEvent).data;
-      this.#lastKnownValue.set(
-        el,
-        `data:${blob.type};base64,${await base64(blob)}`
+      console.log(
+        `Recorded video of type ${blob.type} and size ${blob.size} bytes`
       );
+      const encoded = `data:${blob.type};base64,${await base64(blob)}`;
+      this.#lastKnownValue.set(el, encoded);
       callback(true);
     };
     el.addEventListener("data", handler);
