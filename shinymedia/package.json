@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.30",
-    "@types/rstudio-shiny": "https://github.com/rstudio/shiny#v1.7.0",
+    "@types/rstudio-shiny": "https://github.com/rstudio/shiny#v1.8.1.1",
     "esbuild": "^0.21.3",
     "typescript": "^5.4.5"
   }

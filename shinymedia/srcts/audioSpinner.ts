@@ -82,10 +82,11 @@ class AudioSpinnerElement extends HTMLElement {
     this.appendChild(this.#canvas);
     canvasSlot.assign(this.#canvas);
     this.#ctx2d = this.#canvas.getContext("2d")!;
-    this.#ctx2d.scale(window.devicePixelRatio, window.devicePixelRatio);
     new ResizeObserver(() => {
-      this.#canvas.width = this.clientWidth;
-      this.#canvas.height = this.clientHeight;
+      this.#canvas.width = this.clientWidth * 2;
+      this.#canvas.height = this.clientHeight * 2;
+      this.#canvas.style.width = this.clientWidth + "px";
+      this.#canvas.style.height = this.clientHeight + "px";
     }).observe(this);
 
     // Initialize analyzer
@@ -162,77 +163,82 @@ class AudioSpinnerElement extends HTMLElement {
 
     requestAnimationFrame(() => this.#draw());
 
-    const width = this.#canvas.width;
-    const height = this.#canvas.height;
-    this.#ctx2d.clearRect(0, 0, width, height);
+    const pixelRatio = window.devicePixelRatio;
+    const physicalWidth = this.#canvas.width;
+    const physicalHeight = this.#canvas.height;
+    const width = physicalWidth / pixelRatio;
+    const height = physicalHeight / pixelRatio;
+    this.#ctx2d.reset();
+    this.#ctx2d.clearRect(0, 0, physicalWidth, physicalHeight);
+    this.#ctx2d.scale(pixelRatio, pixelRatio);
+    this.#ctx2d.translate(width / 2, height / 2);
 
     this.#analyzer.getFloatTimeDomainData(this.#dataArray);
     const smoothed = this.#smoother.add(new Float32Array(this.#dataArray));
 
-    const {
-      spinVelocity,
+    let {
+      rpm,
       gap,
-      thickness,
+      stroke,
       minRadius,
-      radiusFactor,
+      radiusCompression,
+      radiusOverscan,
       steps,
       blades,
     } = this.#getSettings(width, height);
 
-    const avg =
-      (smoothed.reduce((a, b) => a + Math.abs(b), 0) / smoothed.length) * 4;
+    if (blades === 0) {
+      blades = 1;
+      gap = 0;
+    }
 
-    const radius = minRadius + (avg * (height - minRadius)) / radiusFactor;
-    for (let step = 0; step < steps; step++) {
-      const this_radius = radius - step * (radius / (steps + 1));
-      if (step === steps - 1) {
-        this.#drawPie(width, height, 0, Math.PI * 2, this_radius, thickness);
+    stroke = Math.max(0, stroke);
+    minRadius = Math.max(0, minRadius);
+    steps = Math.max(0, steps);
+
+    // A value between 0 and 1 representing the amplitude
+    const scalarVal = Math.max(0, ...smoothed.map(Math.abs));
+    // Compress the scalar value to make quieter sounds more visible
+    const compressedScalarVal = Math.pow(scalarVal, radiusCompression);
+    const maxRadius = (Math.min(width, height) / 2) * radiusOverscan;
+    const radius = minRadius + compressedScalarVal * (maxRadius - minRadius);
+
+    const sweep = (Math.PI * 2) / blades - gap;
+    const staticAngle =
+      Math.PI / -2 + // rotate -90 degrees to start at the top
+      sweep / -2; // center the blade
+
+    for (let step = 0; step < steps + 1; step++) {
+      const this_radius = radius - step * (radius / (steps + 2));
+      if (step === steps) {
+        this.#drawPie(0, Math.PI * 2, this_radius, stroke);
       } else {
         const seconds = (this.#audio.currentTime || 0) + this.#secondsOffset;
-        const startAngle = (seconds * spinVelocity) % (Math.PI * 2);
+        const spinVelocity = (rpm / 60) * Math.PI * 2;
+        const startAngle =
+          staticAngle + ((seconds * spinVelocity) % (Math.PI * 2));
         for (let blade = 0; blade < blades; blade++) {
           const angleOffset = ((Math.PI * 2) / blades) * blade;
-          const sweep = (Math.PI * 2) / blades - gap;
-          this.#drawPie(
-            width,
-            height,
-            startAngle + angleOffset,
-            sweep,
-            this_radius,
-            thickness
-          );
+          this.#drawPie(startAngle + angleOffset, sweep, this_radius, stroke);
         }
       }
     }
   }
 
-  #drawPie(
-    width: number,
-    height: number,
-    startAngle: number,
-    sweep: number,
-    radius: number,
-    thickness?: number
-  ) {
+  #drawPie(startAngle: number, sweep: number, radius: number, stroke?: number) {
     this.#ctx2d.beginPath();
     this.#ctx2d.fillStyle = window.getComputedStyle(this.#canvas).color;
-    if (!thickness) {
-      this.#ctx2d.moveTo(width / 2, height / 2);
+    if (!stroke) {
+      this.#ctx2d.moveTo(0, 0);
     }
-    this.#ctx2d.arc(
-      width / 2,
-      height / 2,
-      radius,
-      startAngle,
-      startAngle + sweep
-    );
-    if (!thickness) {
-      this.#ctx2d.lineTo(width / 2, height / 2);
+    this.#ctx2d.arc(0, 0, radius, startAngle, startAngle + sweep);
+    if (!stroke) {
+      this.#ctx2d.lineTo(0, 0);
     } else {
       this.#ctx2d.arc(
-        width / 2,
-        height / 2,
-        radius - thickness,
+        0,
+        0,
+        radius - stroke,
         startAngle + sweep,
         startAngle,
         true
@@ -244,12 +250,13 @@ class AudioSpinnerElement extends HTMLElement {
   #getSettings(width: number, height: number) {
     // Visualization settings
     const settings = {
-      spinVelocity: 5,
+      rpm: 10,
       gap: Math.PI / 5,
-      thickness: 2.5,
+      stroke: 2.5,
       minRadius: Math.min(width, height) / 6,
-      radiusFactor: 1.8,
-      steps: 3,
+      radiusCompression: 0.5,
+      radiusOverscan: 1,
+      steps: 2,
       blades: 3,
     };
     for (const key in settings) {

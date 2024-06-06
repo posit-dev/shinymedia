@@ -169,6 +169,7 @@ var VideoClipperElement = class extends HTMLElement {
   }
   _beginRecord() {
     this.recorder = new MediaRecorder(this.cameraStream, {
+      mimeType: this.dataset.mimeType,
       videoBitsPerSecond: safeFloat(this.dataset.videoBitsPerSecond),
       audioBitsPerSecond: safeFloat(this.dataset.audioBitsPerSecond)
     });
@@ -368,10 +369,11 @@ var AudioSpinnerElement = class extends HTMLElement {
     this.appendChild(this.#canvas);
     canvasSlot.assign(this.#canvas);
     this.#ctx2d = this.#canvas.getContext("2d");
-    this.#ctx2d.scale(window.devicePixelRatio, window.devicePixelRatio);
     new ResizeObserver(() => {
-      this.#canvas.width = this.clientWidth;
-      this.#canvas.height = this.clientHeight;
+      this.#canvas.width = this.clientWidth * 2;
+      this.#canvas.height = this.clientHeight * 2;
+      this.#canvas.style.width = this.clientWidth + "px";
+      this.#canvas.style.height = this.clientHeight + "px";
     }).observe(this);
     const audioCtx = new AudioContext();
     const source = audioCtx.createMediaElementSource(this.#audio);
@@ -433,64 +435,70 @@ var AudioSpinnerElement = class extends HTMLElement {
       return;
     }
     requestAnimationFrame(() => this.#draw());
-    const width = this.#canvas.width;
-    const height = this.#canvas.height;
-    this.#ctx2d.clearRect(0, 0, width, height);
+    const pixelRatio = window.devicePixelRatio;
+    const physicalWidth = this.#canvas.width;
+    const physicalHeight = this.#canvas.height;
+    const width = physicalWidth / pixelRatio;
+    const height = physicalHeight / pixelRatio;
+    this.#ctx2d.reset();
+    this.#ctx2d.clearRect(0, 0, physicalWidth, physicalHeight);
+    this.#ctx2d.scale(pixelRatio, pixelRatio);
+    this.#ctx2d.translate(width / 2, height / 2);
     this.#analyzer.getFloatTimeDomainData(this.#dataArray);
     const smoothed = this.#smoother.add(new Float32Array(this.#dataArray));
-    const {
-      spinVelocity,
+    let {
+      rpm,
       gap,
-      thickness,
+      stroke,
       minRadius,
-      radiusFactor,
+      radiusCompression,
+      radiusOverscan,
       steps,
       blades
     } = this.#getSettings(width, height);
-    const avg = smoothed.reduce((a, b) => a + Math.abs(b), 0) / smoothed.length * 4;
-    const radius = minRadius + avg * (height - minRadius) / radiusFactor;
-    for (let step = 0; step < steps; step++) {
-      const this_radius = radius - step * (radius / (steps + 1));
-      if (step === steps - 1) {
-        this.#drawPie(width, height, 0, Math.PI * 2, this_radius, thickness);
+    if (blades === 0) {
+      blades = 1;
+      gap = 0;
+    }
+    stroke = Math.max(0, stroke);
+    minRadius = Math.max(0, minRadius);
+    steps = Math.max(0, steps);
+    const scalarVal = Math.max(0, ...smoothed.map(Math.abs));
+    const compressedScalarVal = Math.pow(scalarVal, radiusCompression);
+    const maxRadius = Math.min(width, height) / 2 * radiusOverscan;
+    const radius = minRadius + compressedScalarVal * (maxRadius - minRadius);
+    const sweep = Math.PI * 2 / blades - gap;
+    const staticAngle = Math.PI / -2 + // rotate -90 degrees to start at the top
+    sweep / -2;
+    for (let step = 0; step < steps + 1; step++) {
+      const this_radius = radius - step * (radius / (steps + 2));
+      if (step === steps) {
+        this.#drawPie(0, Math.PI * 2, this_radius, stroke);
       } else {
         const seconds = (this.#audio.currentTime || 0) + this.#secondsOffset;
-        const startAngle = seconds * spinVelocity % (Math.PI * 2);
+        const spinVelocity = rpm / 60 * Math.PI * 2;
+        const startAngle = staticAngle + seconds * spinVelocity % (Math.PI * 2);
         for (let blade = 0; blade < blades; blade++) {
           const angleOffset = Math.PI * 2 / blades * blade;
-          const sweep = Math.PI * 2 / blades - gap;
-          this.#drawPie(
-            width,
-            height,
-            startAngle + angleOffset,
-            sweep,
-            this_radius,
-            thickness
-          );
+          this.#drawPie(startAngle + angleOffset, sweep, this_radius, stroke);
         }
       }
     }
   }
-  #drawPie(width, height, startAngle, sweep, radius, thickness) {
+  #drawPie(startAngle, sweep, radius, stroke) {
     this.#ctx2d.beginPath();
     this.#ctx2d.fillStyle = window.getComputedStyle(this.#canvas).color;
-    if (!thickness) {
-      this.#ctx2d.moveTo(width / 2, height / 2);
+    if (!stroke) {
+      this.#ctx2d.moveTo(0, 0);
     }
-    this.#ctx2d.arc(
-      width / 2,
-      height / 2,
-      radius,
-      startAngle,
-      startAngle + sweep
-    );
-    if (!thickness) {
-      this.#ctx2d.lineTo(width / 2, height / 2);
+    this.#ctx2d.arc(0, 0, radius, startAngle, startAngle + sweep);
+    if (!stroke) {
+      this.#ctx2d.lineTo(0, 0);
     } else {
       this.#ctx2d.arc(
-        width / 2,
-        height / 2,
-        radius - thickness,
+        0,
+        0,
+        radius - stroke,
         startAngle + sweep,
         startAngle,
         true
@@ -500,12 +508,13 @@ var AudioSpinnerElement = class extends HTMLElement {
   }
   #getSettings(width, height) {
     const settings = {
-      spinVelocity: 5,
+      rpm: 10,
       gap: Math.PI / 5,
-      thickness: 2.5,
+      stroke: 2.5,
       minRadius: Math.min(width, height) / 6,
-      radiusFactor: 1.8,
-      steps: 3,
+      radiusCompression: 0.5,
+      radiusOverscan: 1,
+      steps: 2,
       blades: 3
     };
     for (const key in settings) {
@@ -546,80 +555,87 @@ function tryParseFloat(str) {
 }
 
 // srcts/index.ts
-var VideoClipperBinding = class extends Shiny.InputBinding {
-  #lastKnownValue = /* @__PURE__ */ new WeakMap();
-  #handlers = /* @__PURE__ */ new WeakMap();
-  find(scope) {
-    return $(scope).find("video-clipper");
-  }
-  getValue(el) {
-    return this.#lastKnownValue.get(el);
-  }
-  subscribe(el, callback) {
-    const handler = async (ev) => {
-      const blob = ev.data;
-      console.log(
-        `Recorded video of type ${blob.type} and size ${blob.size} bytes`
-      );
-      const encoded = `data:${blob.type};base64,${await base64(blob)}`;
-      this.#lastKnownValue.set(el, encoded);
-      callback(true);
-    };
-    el.addEventListener("data", handler);
-    const handler2 = (ev) => {
-      if (typeof el.dataset.resetOnRecord !== "undefined") {
-        this.#lastKnownValue.set(el, null);
+if (window.Shiny) {
+  let bustAutoPlaySuppression = function() {
+    const audioContext = new AudioContext();
+    const buffer = audioContext.createBuffer(
+      1,
+      audioContext.sampleRate * 105,
+      audioContext.sampleRate
+    );
+    const destination = audioContext.createMediaStreamDestination();
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(destination);
+    source.start();
+    const audioElement = document.createElement("audio");
+    audioElement.controls = true;
+    audioElement.autoplay = true;
+    audioElement.style.display = "none";
+    audioElement.addEventListener("play", () => {
+      audioElement.remove();
+    });
+    audioElement.srcObject = destination.stream;
+    document.body.appendChild(audioElement);
+    document.body.addEventListener(
+      "click",
+      () => {
+        audioElement.play();
+      },
+      { capture: true, once: true }
+    );
+  };
+  bustAutoPlaySuppression2 = bustAutoPlaySuppression;
+  class VideoClipperBinding extends Shiny.InputBinding {
+    #lastKnownValue = /* @__PURE__ */ new WeakMap();
+    #handlers = /* @__PURE__ */ new WeakMap();
+    find(scope) {
+      return $(scope).find("video-clipper.shiny-video-clip");
+    }
+    getValue(el) {
+      return this.#lastKnownValue.get(el);
+    }
+    subscribe(el, callback) {
+      const handler = async (ev) => {
+        const blob = ev.data;
+        console.log(
+          `Recorded video of type ${blob.type} and size ${blob.size} bytes`
+        );
+        const encoded = `data:${blob.type};base64,${await base64(blob)}`;
+        this.#lastKnownValue.set(el, encoded);
         callback(true);
-      }
-    };
-    el.addEventListener("recordstart", handler2);
-    this.#handlers.set(el, [handler, handler2]);
+      };
+      el.addEventListener("data", handler);
+      const handler2 = (ev) => {
+        if (typeof el.dataset.resetOnRecord !== "undefined") {
+          this.#lastKnownValue.set(el, null);
+          callback(true);
+        }
+      };
+      el.addEventListener("recordstart", handler2);
+      this.#handlers.set(el, [handler, handler2]);
+    }
+    unsubscribe(el) {
+      const handlers = this.#handlers.get(el);
+      el.removeEventListener("data", handlers[0]);
+      el.removeEventListener("recordstart", handlers[1]);
+      this.#handlers.delete(el);
+    }
   }
-  unsubscribe(el) {
-    const handlers = this.#handlers.get(el);
-    el.removeEventListener("data", handlers[0]);
-    el.removeEventListener("recordstart", handlers[1]);
-    this.#handlers.delete(el);
-  }
-};
-window.Shiny.inputBindings.register(new VideoClipperBinding(), "video-clipper");
-async function base64(blob) {
-  const buf = await blob.arrayBuffer();
-  const results = [];
-  const CHUNKSIZE = 1024;
-  for (let i = 0; i < buf.byteLength; i += CHUNKSIZE) {
-    const chunk = buf.slice(i, i + CHUNKSIZE);
-    results.push(String.fromCharCode(...new Uint8Array(chunk)));
-  }
-  return btoa(results.join(""));
-}
-function bustAutoPlaySuppression() {
-  const audioContext = new AudioContext();
-  const buffer = audioContext.createBuffer(
-    1,
-    audioContext.sampleRate * 105,
-    audioContext.sampleRate
+  window.Shiny.inputBindings.register(
+    new VideoClipperBinding(),
+    "video-clipper"
   );
-  const destination = audioContext.createMediaStreamDestination();
-  const source = audioContext.createBufferSource();
-  source.buffer = buffer;
-  source.connect(destination);
-  source.start();
-  const audioElement = document.createElement("audio");
-  audioElement.controls = true;
-  audioElement.autoplay = true;
-  audioElement.style.display = "none";
-  audioElement.addEventListener("play", () => {
-    audioElement.remove();
-  });
-  audioElement.srcObject = destination.stream;
-  document.body.appendChild(audioElement);
-  document.body.addEventListener(
-    "click",
-    () => {
-      audioElement.play();
-    },
-    { capture: true, once: true }
-  );
+  async function base64(blob) {
+    const buf = await blob.arrayBuffer();
+    const results = [];
+    const CHUNKSIZE = 1024;
+    for (let i = 0; i < buf.byteLength; i += CHUNKSIZE) {
+      const chunk = buf.slice(i, i + CHUNKSIZE);
+      results.push(String.fromCharCode(...new Uint8Array(chunk)));
+    }
+    return btoa(results.join(""));
+  }
+  document.addEventListener("DOMContentLoaded", bustAutoPlaySuppression);
 }
-document.addEventListener("DOMContentLoaded", bustAutoPlaySuppression);
+var bustAutoPlaySuppression2;

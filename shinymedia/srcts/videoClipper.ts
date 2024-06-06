@@ -220,6 +220,7 @@ class VideoClipperElement extends HTMLElement {
   _beginRecord() {
     // Create a MediaRecorder object
     this.recorder = new MediaRecorder(this.cameraStream!, {
+      mimeType: this.dataset.mimeType,
       videoBitsPerSecond: safeFloat(this.dataset.videoBitsPerSecond),
       audioBitsPerSecond: safeFloat(this.dataset.audioBitsPerSecond),
     });
