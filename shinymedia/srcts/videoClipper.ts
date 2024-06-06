@@ -138,7 +138,12 @@ class VideoClipperElement extends HTMLElement {
 
     // TODO: I can't figure out how to tell if this is actually a selfie cam.
     // Ideally we wouldn't mirror unless we are sure.
-    const isSelfieCam = true; // this.cameraStream.getVideoTracks()[0].getSettings().facingMode === "user";
+    const label = this.cameraStream.getVideoTracks()[0].label;
+    const isSelfieCam =
+      hasConstraint(
+        this.cameraStream.getVideoTracks()[0].getCapabilities().facingMode,
+        "user"
+      ) || /facetime|isight|front/i.test(label);
     this.video.classList.toggle("mirrored", isSelfieCam);
 
     /* Prevent the height from jumping around when switching cameras */
@@ -272,4 +277,32 @@ function safeFloat(value: string | undefined): number | undefined {
     return undefined;
   }
   return floatVal;
+}
+
+function hasConstraint(
+  constraint: ConstrainDOMString | ConstrainDOMStringParameters | undefined,
+  value: string
+): boolean {
+  if (constraint === undefined) {
+    return false;
+  }
+  if (Array.isArray(constraint)) {
+    return constraint.includes(value);
+  }
+  if (typeof constraint === "string") {
+    return constraint === value;
+  }
+  if (constraint instanceof Object) {
+    if (constraint.exact) {
+      if (hasConstraint(constraint.exact, value)) {
+        return true;
+      }
+    }
+    if (constraint.ideal) {
+      if (hasConstraint(constraint.ideal, value)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }

@@ -116,7 +116,11 @@ var VideoClipperElement = class extends HTMLElement {
         deviceId: micId || void 0
       }
     });
-    const isSelfieCam = true;
+    const label = this.cameraStream.getVideoTracks()[0].label;
+    const isSelfieCam = hasConstraint(
+      this.cameraStream.getVideoTracks()[0].getCapabilities().facingMode,
+      "user"
+    ) || /facetime|isight|front/i.test(label);
     this.video.classList.toggle("mirrored", isSelfieCam);
     const aspectRatio = this.cameraStream.getVideoTracks()[0].getSettings().aspectRatio;
     if (aspectRatio) {
@@ -212,6 +216,30 @@ function safeFloat(value) {
     return void 0;
   }
   return floatVal;
+}
+function hasConstraint(constraint, value) {
+  if (constraint === void 0) {
+    return false;
+  }
+  if (Array.isArray(constraint)) {
+    return constraint.includes(value);
+  }
+  if (typeof constraint === "string") {
+    return constraint === value;
+  }
+  if (constraint instanceof Object) {
+    if (constraint.exact) {
+      if (hasConstraint(constraint.exact, value)) {
+        return true;
+      }
+    }
+    if (constraint.ideal) {
+      if (hasConstraint(constraint.ideal, value)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 // srcts/avSettingsMenu.ts
