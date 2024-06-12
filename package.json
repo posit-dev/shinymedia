@@ -5,15 +5,15 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild srcts/index.ts --bundle --platform=node --outfile=dist/index.js",
-    "watch": "esbuild srcts/index.ts --bundle --platform=node --outfile=dist/index.js --watch",
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
     "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jcheng5/multimodal.git"
   },
-  "author": "",
+  "author": "Joe Cheng <joe@posit.co>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jcheng5/multimodal/issues"
