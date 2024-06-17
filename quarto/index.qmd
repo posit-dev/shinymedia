@@ -1,5 +1,5 @@
 ---
-title: Home
+title: shinymedia
 ---
 
 <!-- This shouldn't be needed as the shinymedia components have their own HTML dependency metadata, but it's not working for me for some reason -->
@@ -39,6 +39,8 @@ input_video_clip(
 ## Visualizing audio with `audio_spinner`
 
 Plays audio with a visualization that spins and pulses in time with the audio signal.
+
+Note that `audio_spinner` is not a reactive Shiny output, just a regular HTML component. To render a `audio_spinner` reactively, you can create a dynamic output by using [`@render.express`](https://shiny.posit.co/py/api/express/express.render.express.html) or [`@render.ui`](https://shiny.posit.co/py/api/core/render.ui.html) and including an `audio_spinner` in the output.
 
 Click the icon to play.[^1]
 
