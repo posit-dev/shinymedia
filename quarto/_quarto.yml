@@ -1,6 +1,5 @@
 project:
   type: website
-  output-dir: ../docs
   resources:
     - "lib/"
     - "mp3/"
