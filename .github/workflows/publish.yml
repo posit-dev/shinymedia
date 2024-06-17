@@ -22,7 +22,8 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
-      - run: pip install "python-package[docs]"
+      - run: pip install "shinymedia[docs]"
+        working-directory: ./python-package
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
