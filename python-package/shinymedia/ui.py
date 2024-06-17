@@ -255,7 +255,10 @@ def audio_spinner(
 
 
 def extend_attr(attrs: dict[str, TagAttrValue], key: str, value: TagAttrValue, sep: str = " "):
+    if value is None:
+        return
+
     if key in attrs:
-        attrs[key] += sep + value
+        attrs[key] = f"{attrs[key]}{sep}{value}"
     else:
         attrs[key] = value

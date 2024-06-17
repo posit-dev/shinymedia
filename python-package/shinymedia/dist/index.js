@@ -295,6 +295,7 @@
       a.textContent = dev.label;
       a.dataset.deviceId = dev.deviceId;
       a.className = className;
+      a.classList.add("dropdown-item");
       return li;
     }
     #getSelectedDevice(device) {
