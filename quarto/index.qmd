@@ -15,7 +15,21 @@ At this time it includes two components:
 - `shinymedia.input_video_clip` for recording video clips using attached cameras
 - `shinymedia.audio_spinner` for playing back audio with a spinning visualization
 
-You can see these two components in action together in our [live demo](https://jcheng.shinyapps.io/multimodal/) ([source code](https://github.com/jcheng5/multimodal)).
+You can see these two components in action together in our [live demo](https://jcheng.shinyapps.io/multimodal/) ([source code](https://github.com/jcheng5/multimodal)), or keep reading.
+
+## Installation
+
+From PyPI:
+
+```bash
+pip install shinymedia
+```
+
+Or to install the latest from GitHub:
+
+```bash
+pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia?subdirectory=python-package"
+```
 
 ## Recording video with `input_video_clip`
 

@@ -20,6 +20,10 @@ website:
       - text: "Home"
         href: index.qmd
       - reference/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/posit-dev/shinymedia
+        aria-label: GitHub repository
 
 interlinks:
   fast: true

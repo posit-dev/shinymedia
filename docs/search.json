@@ -60,7 +60,14 @@
     "href": "index.html",
     "title": "shinymedia",
     "section": "",
-    "text": "shinymedia is a Python package that provides Shiny UI controls for recording and playing back media.\nAt this time it includes two components:\nYou can see these two components in action together in our live demo (source code)."
+    "text": "shinymedia is a Python package that provides Shiny UI controls for recording and playing back media.\nAt this time it includes two components:\nYou can see these two components in action together in our live demo (source code), or keep reading."
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "shinymedia",
+    "section": "Installation",
+    "text": "Installation\nFrom PyPI:\npip install shinymedia\nOr to install the latest from GitHub:\npip install \"shinymedia @ git+https://github.com/posit-dev/shinymedia?subdirectory=python-package\""
   },
   {
     "objectID": "index.html#recording-video-with-input_video_clip",
