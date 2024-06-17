@@ -1,0 +1,22 @@
+# input_video_clip { #shinymedia.input_video_clip }
+
+`input_video_clip(id, *, reset_on_record=True, mime_type=None, video_bits_per_second=None, audio_bits_per_second=None, **kwargs)`
+
+A video clip input control that records short videos from webcam.
+
+## Parameters
+
+| Name                    | Type                                     | Description                                                                                                                                                                                                                                                               | Default    |
+|-------------------------|------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| `id`                    | [str](`str`)                             | The input ID to use for this control.                                                                                                                                                                                                                                     | _required_ |
+| `reset_on_record`       | [bool](`bool`)                           | Whether to reset the video clip input value when recording starts. If `True`, the video clip input value will become `None` at the moment the Record button is pressed; if `False`, the value will not change until the user stops recording. By default, this is `True`. | `True`     |
+| `mime_type`             | [str](`str`) \| None                     | The MIME type of the video clip to record. By default, this is `None`, which means the browser will choose a suitable MIME type for video recording. Common MIME types include `video/webm` and `video/x-matroska`.                                                       | `None`     |
+| `video_bits_per_second` | [int](`int`) \| None                     | The target video bitrate in bits per second. By default, this is `None`, which means the browser will choose a suitable bitrate for video recording (according to the spec, `2_500_000`). This is only a suggestion; the browser may choose a different bitrate.          | `None`     |
+| `audio_bits_per_second` | [int](`int`) \| None                     | The target audio bitrate in bits per second. By default, this is `None`, which means the browser will choose a suitable bitrate for audio recording. This is only a suggestion; the browser may choose a different bitrate.                                               | `None`     |
+| `**kwargs`              | [TagAttrValue](`htmltools.TagAttrValue`) | Additional attributes for the video clip input, to be added directly to the `<video-clipper>` element.                                                                                                                                                                    | `{}`       |
+
+## Returns
+
+| Type                                   | Description                                                                                                                                                                                                                                                                                                                                                             |
+|----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [ui](`shiny.ui`).[Tag](`shiny.ui.Tag`) | The video clip input tag, to be inserted into a Shiny app. From the server's `input` object, you can access the video clip input value using the ID you provided here; for example, `input_video_clip("foo")` would be available as `input.foo()`. The value is either `None` (if no video has been recorded) or a base64-encoded data URL representing the video clip. |

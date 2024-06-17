@@ -1,0 +1,38 @@
+project:
+  type: website
+  resources:
+    - "shinymedia/"
+    - "mp3/"
+
+metadata-files:
+  - _sidebar.yml
+
+filters:
+  - interlinks
+
+website:
+  title: shinymedia
+  navbar:
+    background: primary
+    search: true
+    left:
+      - index.qmd
+      - reference/index.qmd
+
+interlinks:
+  fast: true
+  sources:
+    shiny:
+      url: https://shiny.posit.co/py/
+      inv: objects.json
+
+quartodoc:
+  package: shinymedia
+  render_interlinks: true
+  sidebar: _sidebar.yml
+  sections:
+    - title: Media components
+      desc: Components to be used with Shiny for media capture/playback.
+      contents:
+        - input_video_clip
+        - audio_spinner

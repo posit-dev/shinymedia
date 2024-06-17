@@ -56,6 +56,11 @@ async function postBuild() {
     errorOnExist: false,
     preserveTimestamps: true,
   });
+  await fs.cp("dist", "docs/lib/shinymedia/", {
+    recursive: true,
+    errorOnExist: false,
+    preserveTimestamps: true,
+  });
 }
 
 await main(process.argv.includes("--watch"));

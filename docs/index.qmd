@@ -1,0 +1,76 @@
+---
+title: Home
+---
+
+<!-- This shouldn't be needed as the shinymedia components have their own HTML dependency metadata, but it's not working for me for some reason -->
+```{=html}
+<link rel="stylesheet" href="lib/shinymedia/index.css"/>
+<script src="lib/shinymedia/index.js"></script>
+```
+
+**shinymedia** is a Python package that provides [Shiny](https://shiny.posit.co/py/) UI controls for recording and playing back media.
+
+At this time it includes two components:
+
+- `shinymedia.input_video_clip` for recording video clips using attached cameras
+- `shinymedia.audio_spinner` for playing back audio with a spinning visualization
+
+You can see these two components in action together in our [live demo](https://jcheng.shinyapps.io/multimodal/) ([source code](https://github.com/jcheng5/multimodal)).
+
+## Recording video with `input_video_clip`
+
+This component allows you to record video clips using attached cameras.
+Press the Record button to start recording, and press Stop to stop.
+The recorded clip will be sent to Shiny as a data URI in whatever video format the browser supports.
+
+The example below lets you see what the component looks like, although it won't actually do anything with the recorded video in this static document.
+
+```{python}
+from shinymedia import input_video_clip
+
+input_video_clip(
+  "clip1",
+  video_bits_per_second=256000,
+  audio_bits_per_second=64000,
+  style="width: 400px; max-width: 100%;",
+)
+```
+
+## Visualizing audio with `audio_spinner`
+
+Plays audio with a visualization that spins and pulses in time with the audio signal.
+
+Click the icon to play.[^1]
+
+```{python}
+from shinymedia import audio_spinner
+
+audio_spinner(
+  src='mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  width="125px",
+  height="125px",
+  autoplay=False,
+)
+```
+
+There are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the [reference docs](reference/audio_spinner.qmd) for more information on these and other options.
+
+```{python}
+from shinymedia import audio_spinner
+
+audio_spinner(
+  src='mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  class_="bg-dark rounded-3 mx-auto",
+  width="125px",
+  height="125px",
+  autoplay=False,
+  rpm=33,
+  blades=8,
+  gap=0.2,
+  stroke=1,
+  steps=5,
+)
+```
+
+[^1]: **Audio credit:** LibriVox recording of [_Essai sur les révolutions suivi des Etudes historiques_
+](https://archive.org/details/essaisurlesrevolutions_2405_librivox/essaisurlesrevolutions_00_chateaubriand_128kb.mp3) by François-René de Chateaubriand, public domain.

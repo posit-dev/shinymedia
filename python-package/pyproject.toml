@@ -45,6 +45,10 @@ dev = [
     "isort",
     "wheel",
 ]
+docs = [
+    "jupyter",
+    "quartodoc",
+]
 [project.urls]
 homepage = "https://github.com/jcheng5/shinymedia"
 documentation = "https://github.com/jcheng5/shinymedia"
