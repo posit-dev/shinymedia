@@ -8,5 +8,5 @@ This package provides Shiny UI components relating to audio and video. It curren
 ## Installation
 
 ```sh
-pip install "shinymedia @ git+https://github.com/jcheng5/shinymedia@multilingual?subdirectory=python-package"
+pip install "shinymedia @ git+https://github.com/jcheng5/shinymedia?subdirectory=python-package"
 ```
