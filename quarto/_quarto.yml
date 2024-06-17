@@ -1,7 +1,8 @@
 project:
   type: website
+  output-dir: ../docs
   resources:
-    - "shinymedia/"
+    - "lib/"
     - "mp3/"
 
 metadata-files:

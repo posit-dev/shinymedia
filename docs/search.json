@@ -1,0 +1,122 @@
+[
+  {
+    "objectID": "reference/input_video_clip.html",
+    "href": "reference/input_video_clip.html",
+    "title": "input_video_clip",
+    "section": "",
+    "text": "input_video_clip(id, *, reset_on_record=True, mime_type=None, video_bits_per_second=None, audio_bits_per_second=None, **kwargs)\nA video clip input control that records short videos from webcam.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nid\nstr\nThe input ID to use for this control.\nrequired\n\n\nreset_on_record\nbool\nWhether to reset the video clip input value when recording starts. If True, the video clip input value will become None at the moment the Record button is pressed; if False, the value will not change until the user stops recording. By default, this is True.\nTrue\n\n\nmime_type\nstr | None\nThe MIME type of the video clip to record. By default, this is None, which means the browser will choose a suitable MIME type for video recording. Common MIME types include video/webm and video/x-matroska.\nNone\n\n\nvideo_bits_per_second\nint | None\nThe target video bitrate in bits per second. By default, this is None, which means the browser will choose a suitable bitrate for video recording (according to the spec, 2_500_000). This is only a suggestion; the browser may choose a different bitrate.\nNone\n\n\naudio_bits_per_second\nint | None\nThe target audio bitrate in bits per second. By default, this is None, which means the browser will choose a suitable bitrate for audio recording. This is only a suggestion; the browser may choose a different bitrate.\nNone\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the video clip input, to be added directly to the &lt;video-clipper&gt; element.\n{}\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nui.Tag\nThe video clip input tag, to be inserted into a Shiny app. From the server’s input object, you can access the video clip input value using the ID you provided here; for example, input_video_clip(\"foo\") would be available as input.foo(). The value is either None (if no video has been recorded) or a base64-encoded data URL representing the video clip.",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "input_video_clip"
+    ]
+  },
+  {
+    "objectID": "reference/input_video_clip.html#parameters",
+    "href": "reference/input_video_clip.html#parameters",
+    "title": "input_video_clip",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nid\nstr\nThe input ID to use for this control.\nrequired\n\n\nreset_on_record\nbool\nWhether to reset the video clip input value when recording starts. If True, the video clip input value will become None at the moment the Record button is pressed; if False, the value will not change until the user stops recording. By default, this is True.\nTrue\n\n\nmime_type\nstr | None\nThe MIME type of the video clip to record. By default, this is None, which means the browser will choose a suitable MIME type for video recording. Common MIME types include video/webm and video/x-matroska.\nNone\n\n\nvideo_bits_per_second\nint | None\nThe target video bitrate in bits per second. By default, this is None, which means the browser will choose a suitable bitrate for video recording (according to the spec, 2_500_000). This is only a suggestion; the browser may choose a different bitrate.\nNone\n\n\naudio_bits_per_second\nint | None\nThe target audio bitrate in bits per second. By default, this is None, which means the browser will choose a suitable bitrate for audio recording. This is only a suggestion; the browser may choose a different bitrate.\nNone\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the video clip input, to be added directly to the &lt;video-clipper&gt; element.\n{}",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "input_video_clip"
+    ]
+  },
+  {
+    "objectID": "reference/input_video_clip.html#returns",
+    "href": "reference/input_video_clip.html#returns",
+    "title": "input_video_clip",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nui.Tag\nThe video clip input tag, to be inserted into a Shiny app. From the server’s input object, you can access the video clip input value using the ID you provided here; for example, input_video_clip(\"foo\") would be available as input.foo(). The value is either None (if no video has been recorded) or a base64-encoded data URL representing the video clip.",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "input_video_clip"
+    ]
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#media-components",
+    "href": "reference/index.html#media-components",
+    "title": "Function reference",
+    "section": "",
+    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "shinymedia is a Python package that provides Shiny UI controls for recording and playing back media.\nAt this time it includes two components:\nYou can see these two components in action together in our live demo (source code)."
+  },
+  {
+    "objectID": "index.html#recording-video-with-input_video_clip",
+    "href": "index.html#recording-video-with-input_video_clip",
+    "title": "Home",
+    "section": "Recording video with input_video_clip",
+    "text": "Recording video with input_video_clip\nThis component allows you to record video clips using attached cameras. Press the Record button to start recording, and press Stop to stop. The recorded clip will be sent to Shiny as a data URI in whatever video format the browser supports.\nThe example below lets you see what the component looks like, although it won’t actually do anything with the recorded video in this static document.\n\nfrom shinymedia import input_video_clip\n\ninput_video_clip(\n  \"clip1\",\n  video_bits_per_second=256000,\n  audio_bits_per_second=64000,\n  style=\"width: 400px; max-width: 100%;\",\n)\n\n\n  \n    \n        \n      \n        \n          Camera\n        \n        \n          \n        \n        \n          Microphone\n        \n      \n    \n  \n  \n          \n      Record    Stop"
+  },
+  {
+    "objectID": "index.html#visualizing-audio-with-audio_spinner",
+    "href": "index.html#visualizing-audio-with-audio_spinner",
+    "title": "Home",
+    "section": "Visualizing audio with audio_spinner",
+    "text": "Visualizing audio with audio_spinner\nPlays audio with a visualization that spins and pulses in time with the audio signal.\nClick the icon to play.1\n\nfrom shinymedia import audio_spinner\n\naudio_spinner(\n  src='mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',\n  width=\"125px\",\n  height=\"125px\",\n  autoplay=False,\n)\n\n\n\n\nThere are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the reference docs for more information on these and other options.\n\nfrom shinymedia import audio_spinner\n\naudio_spinner(\n  src='mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',\n  class_=\"bg-dark rounded-3 mx-auto\",\n  width=\"125px\",\n  height=\"125px\",\n  autoplay=False,\n  rpm=33,\n  blades=8,\n  gap=0.2,\n  stroke=1,\n  steps=5,\n)"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Home",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nAudio credit: LibriVox recording of Essai sur les révolutions suivi des Etudes historiques by François-René de Chateaubriand, public domain.↩︎"
+  },
+  {
+    "objectID": "reference/audio_spinner.html",
+    "href": "reference/audio_spinner.html",
+    "title": "audio_spinner",
+    "section": "",
+    "text": "audio_spinner(src, rpm=10, gap=math.pi / 5, stroke=2.5, min_radius=30, radius_compression=0.8, radius_overscan=1.1, steps=2, blades=3, width='125px', height='125px', autoplay=True, autodismiss=False, class_='mx-auto', **kwargs)\nCreate an audio spinner.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsrc\nstr\nThe source of the audio file. If this is a path to a file that exists, the file will be read and embedded as a base64-encoded data URL. Any other value will be passed through as the src attribute of the &lt;audio&gt; element.\nrequired\n\n\nrpm\nfloat\nThe speed of the spinner, in clockwise revolutions per minute. By default, it’s 10 RPM. Use 0 to disable rotation, or a negative value to rotate counter-clockwise.\n10\n\n\ngap\nfloat\nThe gap between the blades of the spinner, in radians. By default it’s π/5, or 36°.\nmath.pi / 5\n\n\nstroke\nfloat\nThe stroke thickness of the individual arcs that make up each blade of the spinner, in pixels. By default, 2.5.\n2.5\n\n\nmin_radius\nfloat\nThe radius of the spinner when there is only silence, in pixels; default is 30.\n30\n\n\nradius_compression\nfloat\nThe raw [-1, 1] amplitude of the audio is compressed using x^radius_compression to make the spinner more responsive to quiet sounds. By default, this is 0.8. Set to 1.0 to disable compression. (Note that this only affects the vizualization, not the audio playback.)\n0.8\n\n\nradius_overscan\nfloat\nUse this parameter to set the maximum possible radius of the spinner, relative to the width/height of the container. By default, this is 1.1, meaning the spinner radius will be scaled such that at maximum amplitude, it will be 10% larger than the container (the spinner blades will be clipped). Use larger values if you’re expecting generally quiet audio.\n1.1\n\n\nsteps\nfloat\nThe number of concetric arcs that make up each blade of the spinner, not including the central circle. By default, this is 2.\n2\n\n\nblades\nfloat\nThe number of blades in the spinner, by default 3. Set to 0 to use concentric circles instead of blades.\n3\n\n\nwidth\nstr\nThe width of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nheight\nstr\nThe height of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nautoplay\nbool\nWhether to autoplay the audio, by default True. Note that many browsers will not allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a tooltip instructing the user to tap or click to start the audio.\nTrue\n\n\nautodismiss\nbool\nWhether to remove the spinner after the audio finishes playing, by default False.\nFalse\n\n\nclass_\nstr\nThe class of the spinner, by default “mx-auto” which horizontally centers the element inside its container (assuming Bootstrap is loaded).\n'mx-auto'\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the spinner, to be added directly to the &lt;audio-spinner&gt; element.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nui.Tag\nThe audio spinner tag.",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "audio_spinner"
+    ]
+  },
+  {
+    "objectID": "reference/audio_spinner.html#parameters",
+    "href": "reference/audio_spinner.html#parameters",
+    "title": "audio_spinner",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsrc\nstr\nThe source of the audio file. If this is a path to a file that exists, the file will be read and embedded as a base64-encoded data URL. Any other value will be passed through as the src attribute of the &lt;audio&gt; element.\nrequired\n\n\nrpm\nfloat\nThe speed of the spinner, in clockwise revolutions per minute. By default, it’s 10 RPM. Use 0 to disable rotation, or a negative value to rotate counter-clockwise.\n10\n\n\ngap\nfloat\nThe gap between the blades of the spinner, in radians. By default it’s π/5, or 36°.\nmath.pi / 5\n\n\nstroke\nfloat\nThe stroke thickness of the individual arcs that make up each blade of the spinner, in pixels. By default, 2.5.\n2.5\n\n\nmin_radius\nfloat\nThe radius of the spinner when there is only silence, in pixels; default is 30.\n30\n\n\nradius_compression\nfloat\nThe raw [-1, 1] amplitude of the audio is compressed using x^radius_compression to make the spinner more responsive to quiet sounds. By default, this is 0.8. Set to 1.0 to disable compression. (Note that this only affects the vizualization, not the audio playback.)\n0.8\n\n\nradius_overscan\nfloat\nUse this parameter to set the maximum possible radius of the spinner, relative to the width/height of the container. By default, this is 1.1, meaning the spinner radius will be scaled such that at maximum amplitude, it will be 10% larger than the container (the spinner blades will be clipped). Use larger values if you’re expecting generally quiet audio.\n1.1\n\n\nsteps\nfloat\nThe number of concetric arcs that make up each blade of the spinner, not including the central circle. By default, this is 2.\n2\n\n\nblades\nfloat\nThe number of blades in the spinner, by default 3. Set to 0 to use concentric circles instead of blades.\n3\n\n\nwidth\nstr\nThe width of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nheight\nstr\nThe height of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nautoplay\nbool\nWhether to autoplay the audio, by default True. Note that many browsers will not allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a tooltip instructing the user to tap or click to start the audio.\nTrue\n\n\nautodismiss\nbool\nWhether to remove the spinner after the audio finishes playing, by default False.\nFalse\n\n\nclass_\nstr\nThe class of the spinner, by default “mx-auto” which horizontally centers the element inside its container (assuming Bootstrap is loaded).\n'mx-auto'\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the spinner, to be added directly to the &lt;audio-spinner&gt; element.\n{}",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "audio_spinner"
+    ]
+  },
+  {
+    "objectID": "reference/audio_spinner.html#returns",
+    "href": "reference/audio_spinner.html#returns",
+    "title": "audio_spinner",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nui.Tag\nThe audio spinner tag.",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "audio_spinner"
+    ]
+  }
+]

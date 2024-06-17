@@ -1,0 +1,8 @@
+# Sphinx inventory version 2
+# Project: shinymedia
+# Version: 0.0.9999
+# The remainder of this file is compressed using zlib.
+shinymedia.input_video_clip py:function 1 reference/input_video_clip.html#shinymedia.input_video_clip -
+shinymedia.ui.input_video_clip py:function 1 reference/input_video_clip.html#shinymedia.input_video_clip shinymedia.input_video_clip
+shinymedia.audio_spinner py:function 1 reference/audio_spinner.html#shinymedia.audio_spinner -
+shinymedia.ui.audio_spinner py:function 1 reference/audio_spinner.html#shinymedia.audio_spinner shinymedia.audio_spinner
