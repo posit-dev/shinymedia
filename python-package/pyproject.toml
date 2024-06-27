@@ -5,9 +5,6 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools_scm]
 root = ".."
 
-[tool.setuptools.packages.find]
-include = ["shinymedia"]
-
 [project]
 name = "shinymedia"
 description = "Extends the Shiny web framework with controls for multimedia input/output."
