@@ -71,26 +71,6 @@
     ]
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Function reference",
-    "section": "",
-    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "reference/index.html#media-components",
-    "href": "reference/index.html#media-components",
-    "title": "Function reference",
-    "section": "",
-    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
     "objectID": "reference/audio_spinner.html",
     "href": "reference/audio_spinner.html",
     "title": "audio_spinner",
@@ -124,6 +104,26 @@
       "Function reference",
       "Media components",
       "audio_spinner"
+    ]
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#media-components",
+    "href": "reference/index.html#media-components",
+    "title": "Function reference",
+    "section": "",
+    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
+    "crumbs": [
+      "Function reference"
     ]
   }
 ]
