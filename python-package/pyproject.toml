@@ -47,8 +47,8 @@ docs = [
     "quartodoc",
 ]
 [project.urls]
-homepage = "https://github.com/jcheng5/shinymedia"
-documentation = "https://github.com/jcheng5/shinymedia"
+homepage = "https://github.com/posit-dev/shinymedia"
+documentation = "https://posit-dev.github.io/shinymedia/"
 
 [tool.flake8]
 exclude = ["docs", ".venv", "tests/*"]
