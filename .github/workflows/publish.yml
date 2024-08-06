@@ -34,7 +34,7 @@ jobs:
           packages:
             any::knitr
             any::rmarkdown
-      - run: R CMD INSTALL .
+      - run: /usr/local/bin/R CMD INSTALL .
         working-directory: ./r-package
 
       - name: Render and Publish
