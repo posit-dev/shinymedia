@@ -34,6 +34,7 @@ jobs:
           extra-packages:
             any::knitr
             any::rmarkdown
+            any::reticulate
           install-quarto: false
       - run: /usr/local/bin/R CMD INSTALL .
         working-directory: ./r-package
