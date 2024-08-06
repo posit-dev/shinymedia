@@ -25,9 +25,10 @@ jobs:
       - run: pip install ".[docs]"
         working-directory: ./python-package
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        working-directory: ./r-package
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          working-directory: ./r-package
           packages:
             any::knitr
             any::rmarkdown
