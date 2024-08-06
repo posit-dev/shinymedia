@@ -1,0 +1,14 @@
+Package: shinymedia
+Title: Multimedia Input/Output Controls for Shiny
+Version: 0.0.0.9000
+Authors@R: 
+    person("Joe", "Cheng", , "joe@posit.co", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    htmltools,
+    rlang,
+    shiny

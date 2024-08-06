@@ -2,22 +2,20 @@
 title: shinymedia
 ---
 
-<!-- This shouldn't be needed as the shinymedia components have their own HTML dependency metadata, but it's not working for me for some reason -->
-```{=html}
-<link rel="stylesheet" href="lib/shinymedia/index.css"/>
-<script src="lib/shinymedia/index.js"></script>
-```
-
-**shinymedia** is a Python package that provides [Shiny](https://shiny.posit.co/py/) UI controls for recording and playing back media.
+**shinymedia** is a Python and R package that provides [Shiny](https://shiny.posit.co/py/) UI controls for recording and playing back media.
 
 At this time it includes two components:
 
-- `shinymedia.input_video_clip` for recording video clips using attached cameras
-- `shinymedia.audio_spinner` for playing back audio with a spinning visualization
+- `input_video_clip` for recording video clips using attached cameras
+- `audio_spinner` for playing back audio with a spinning visualization
 
 You can see these two components in action together in our [live demo](https://jcheng.shinyapps.io/multimodal/) ([source code](https://github.com/jcheng5/multimodal)), or keep reading.
 
 ## Installation
+
+::: {.panel-tabset group="lang"}
+
+## Python
 
 From PyPI:
 
@@ -31,6 +29,22 @@ Or to install the latest from GitHub:
 pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia?subdirectory=python-package"
 ```
 
+## R
+
+From CRAN:
+
+```bash
+install.packages("shinymedia")  # Not published yet
+```
+
+Or to install the latest from GitHub:
+
+```bash
+pak::pak("posit-dev/shinymedia/r-package")
+```
+
+:::
+
 ## Recording video with `input_video_clip`
 
 This component allows you to record video clips using attached cameras.
@@ -38,6 +52,10 @@ Press the Record button to start recording, and press Stop to stop.
 The recorded clip will be sent to Shiny as a data URI in whatever video format the browser supports.
 
 The example below lets you see what the component looks like, although it won't actually do anything with the recorded video in this static document.
+
+::: {.panel-tabset group="lang"}
+
+## Python
 
 ```{python}
 from shinymedia import input_video_clip
@@ -50,6 +68,21 @@ input_video_clip(
 )
 ```
 
+## R
+
+```{r}
+library(shinymedia)
+
+input_video_clip(
+  "clip1",
+  video_bits_per_second=256000,
+  audio_bits_per_second=64000,
+  style="width: 400px; max-width: 100%;",
+)
+```
+
+:::
+
 ## Visualizing audio with `audio_spinner`
 
 Plays audio with a visualization that spins and pulses in time with the audio signal.
@@ -57,6 +90,10 @@ Plays audio with a visualization that spins and pulses in time with the audio si
 Note that `audio_spinner` is not a reactive Shiny output, just a regular HTML component. To render a `audio_spinner` reactively, you can create a dynamic output by using [`@render.express`](https://shiny.posit.co/py/api/express/express.render.express.html) or [`@render.ui`](https://shiny.posit.co/py/api/core/render.ui.html) and including an `audio_spinner` in the output.
 
 Click the icon to play.[^1]
+
+::: {.panel-tabset group="lang"}
+
+## Python
 
 ```{python}
 from shinymedia import audio_spinner
@@ -69,7 +106,26 @@ audio_spinner(
 )
 ```
 
+## R
+
+```{r}
+library(shinymedia)
+
+audio_spinner(
+  con = 'mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  width = "125px",
+  height = "125px",
+  autoplay = FALSE,
+)
+```
+
+:::
+
 There are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the [reference docs](reference/audio_spinner.qmd) for more information on these and other options.
+
+::: {.panel-tabset group="lang"}
+
+## Python
 
 ```{python}
 from shinymedia import audio_spinner
@@ -87,6 +143,27 @@ audio_spinner(
   steps=5,
 )
 ```
+
+## R
+
+```{r}
+library(shinymedia)
+
+audio_spinner(
+  con = 'mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  class = "bg-dark rounded-3 mx-auto",
+  width = "125px",
+  height = "125px",
+  autoplay = FALSE,
+  rpm = 33,
+  blades = 8,
+  gap = 0.2,
+  stroke = 1,
+  steps = 5,
+)
+```
+
+:::
 
 [^1]: **Audio credit:** LibriVox recording of [_Essai sur les révolutions suivi des Etudes historiques_
 ](https://archive.org/details/essaisurlesrevolutions_2405_librivox/essaisurlesrevolutions_00_chateaubriand_128kb.mp3) by François-René de Chateaubriand, public domain.
