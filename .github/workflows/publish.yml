@@ -25,6 +25,15 @@ jobs:
       - run: pip install ".[docs]"
         working-directory: ./python-package
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        working-directory: ./r-package
+        with:
+          packages:
+            any::knitr
+            any::rmarkdown
+      - run: R CMD INSTALL .
+        working-directory: ./r-package
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
