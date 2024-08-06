@@ -31,9 +31,10 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           working-directory: ./r-package
-          packages:
+          extra-packages:
             any::knitr
             any::rmarkdown
+          install-quarto: false
       - run: /usr/local/bin/R CMD INSTALL .
         working-directory: ./r-package
 
