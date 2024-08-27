@@ -1,10 +1,24 @@
-# Function reference {.doc .doc-index}
+---
+title: Function Reference
+---
 
-## Media components
-
-Components to be used with Shiny for media capture/playback.
-
-| | |
-| --- | --- |
-| [input_video_clip](input_video_clip.qmd#shinymedia.input_video_clip) | A video clip input control that records short videos from webcam. |
-| [audio_spinner](audio_spinner.qmd#shinymedia.audio_spinner) | Create an audio spinner. |
+```{=html}
+<div class="container">
+<div class="row d-grid" style="grid-template-columns: repeat(auto-fill, minmax(325px, 1fr)); gap: 1em;">
+<!-- card -->
+<div class="card card-as-link">
+<img src="python-logo.svg" class="card-img-top card-img-logo" alt="">
+<div class="card-body d-flex align-items-end">
+<div class="card-title mt-0 mb-3 h3"><a href="python/index.html" class="card-primary-link card-header-link text-decoration-none">Python Reference</a></div>
+</div>
+</div>
+<!-- card -->
+<div class="card card-as-link">
+<img src="r-logo.svg" class="card-img-top card-img-logo" alt="">
+<div class="card-body d-flex align-items-end">
+<div class="card-title mt-0 mb-3 h3"><a href="r/index.html" class="card-primary-link card-header-link text-decoration-none">R Reference</a></div>
+</div>
+</div>
+</div>
+</div>
+```

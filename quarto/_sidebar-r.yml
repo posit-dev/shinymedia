@@ -1,0 +1,10 @@
+website:
+  sidebar:
+  - contents:
+    - reference/r/index.qmd
+    - contents:
+      - reference/r/input_video_clip.qmd
+      - reference/r/audio_spinner.qmd
+      section: Media components
+    id: r
+  - id: dummy-sidebar

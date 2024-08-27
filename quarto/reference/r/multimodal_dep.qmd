@@ -1,0 +1,15 @@
+---
+title: '`multimodal_dep`'
+subtitle: Create HTML dependency for multimodal component
+
+---
+
+## Description
+
+Create HTML dependency for multimodal component
+
+## Usage
+
+``` R
+multimodal_dep()
+```

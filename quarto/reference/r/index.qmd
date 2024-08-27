@@ -1,0 +1,10 @@
+# R Package Reference {.doc .doc-index}
+
+## Media components
+
+Components to be used with Shiny for media capture/playback.
+
+| | |
+| --- | --- |
+| [input_video_clip](input_video_clip.qmd#shinymedia.input_video_clip) | A video clip input control that records short videos from webcam. |
+| [audio_spinner](audio_spinner.qmd#shinymedia.audio_spinner) | Create an audio spinner. |

@@ -121,7 +121,7 @@ audio_spinner(
 
 :::
 
-There are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the [reference docs](reference/audio_spinner.qmd) for more information on these and other options.
+There are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the reference docs for [Python](reference/python/audio_spinner.qmd) or [R](reference/r/audio_spinner.qmd) for more information on these and other options.
 
 ::: {.panel-tabset group="lang"}
 
