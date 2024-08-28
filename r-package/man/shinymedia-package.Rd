@@ -4,12 +4,25 @@
 \name{shinymedia-package}
 \alias{shinymedia}
 \alias{shinymedia-package}
-\title{shinymedia: Multimedia Input/Output Controls for Shiny}
+\title{shinymedia: Multimedia Input/Output Controls for 'Shiny'}
 \description{
-Extends the "Shiny" web framework with controls for multimedia input/output.
+Extends the 'Shiny' web framework with controls for multimedia input/output. Includes a video input control and an audio output.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/posit-dev/shinymedia}
+  \item Report bugs at \url{https://github.com/posit-dev/shinymedia/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Joe Cheng \email{joe@posit.co}
+
+Other contributors:
+\itemize{
+  \item Posit Software, PBC [copyright holder, funder]
+}
 
 }
 \keyword{internal}

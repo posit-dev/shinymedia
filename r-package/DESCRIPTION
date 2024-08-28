@@ -6,7 +6,8 @@ Authors@R: c(
     person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Extends the 'Shiny' web framework with controls for
-    multimedia input/output.
+    multimedia input/output. Includes a video input control and an audio
+    output.
 License: MIT + file LICENSE
 URL: https://github.com/posit-dev/shinymedia
 BugReports: https://github.com/posit-dev/shinymedia/issues
