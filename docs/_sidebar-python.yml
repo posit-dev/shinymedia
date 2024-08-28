@@ -1,0 +1,10 @@
+website:
+  sidebar:
+  - contents:
+    - reference/python/index.qmd
+    - contents:
+      - reference/python/input_video_clip.qmd
+      - reference/python/audio_spinner.qmd
+      section: Media components
+    id: reference/python
+  - id: dummy-sidebar

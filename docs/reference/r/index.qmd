@@ -1,4 +1,4 @@
-# Function reference {.doc .doc-index}
+# R Package Reference {.doc .doc-index}
 
 ## Media components
 
