@@ -6,6 +6,8 @@ Authors@R:
 Description: Extends the "Shiny" web framework with controls for
     multimedia input/output.
 License: MIT + file LICENSE
+URL: https://github.com/posit-dev/shinymedia
+BugReports: https://github.com/posit-dev/shinymedia/issues
 Imports: 
     base64enc,
     htmltools,
