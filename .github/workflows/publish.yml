@@ -27,17 +27,16 @@ jobs:
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
-      - name: Install R dependencies
+      - name: Install R package and dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           working-directory: ./r-package
           extra-packages:
+            local::.
             any::knitr
             any::rmarkdown
             any::reticulate
           install-quarto: false
-      - run: /usr/local/bin/R CMD INSTALL .
-        working-directory: ./r-package
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
