@@ -32,8 +32,6 @@
 #' @param ... Additional attributes for the spinner, to be added directly to the `<audio-spinner>` element.
 #'
 #' @return An HTML tag object representing the audio spinner.
-#' @import htmltools
-#' @import base64enc
 #'
 #' @examples
 #' # Using a URL

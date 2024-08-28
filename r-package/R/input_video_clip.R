@@ -20,9 +20,6 @@
 #'
 #' @return A video clip input control that can be added to a UI definition.
 #' @export
-#'
-#' @importFrom htmltools tag tags tagList div
-#' @importFrom shiny icon
 input_video_clip <- function(
   inputId,
   reset_on_record = TRUE,
