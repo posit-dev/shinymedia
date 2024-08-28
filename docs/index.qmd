@@ -74,10 +74,10 @@ input_video_clip(
 library(shinymedia)
 
 input_video_clip(
-  "clip1",
-  video_bits_per_second=256000,
-  audio_bits_per_second=64000,
-  style="width: 400px; max-width: 100%;",
+	"clip1",
+	video_bits_per_second = 256000,
+	audio_bits_per_second = 64000,
+	style = "width: 400px; max-width: 100%;",
 )
 ```
 
