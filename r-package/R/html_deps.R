@@ -1,4 +1,4 @@
-#' Create HTML dependency for multimodal component
+# HTML dependency for multimodal component
 multimodal_dep <- function() {
   htmlDependency(
     name = "multimodal",
