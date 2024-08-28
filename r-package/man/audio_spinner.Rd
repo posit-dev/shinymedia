@@ -24,63 +24,86 @@ audio_spinner(
 )
 }
 \arguments{
-\item{...}{Additional attributes for the spinner, to be added directly to the \verb{<audio-spinner>} element.}
+\item{...}{Additional attributes for the spinner, to be added directly to the
+\verb{<audio-spinner>} element.}
 
-\item{src}{The source URL or URI for the audio file. This should be used for remote resources
-or data URIs. If provided, this takes precedence over \code{con}.}
+\item{src}{The source URL or URI for the audio file. This should be used for
+remote resources or data URIs. If provided, this takes precedence over
+\code{con}.}
 
-\item{con}{An optional connection object or file path for local audio files. This is ignored
-if \code{src} is provided. Use this for reading local files securely.}
+\item{con}{An optional connection object or file path for local audio files.
+This is ignored if \code{src} is provided. Use this for reading local files
+securely.}
 
-\item{rpm}{The speed of the spinner, in clockwise revolutions per minute. Default is 10 RPM.
-Use 0 to disable rotation, or a negative value to rotate counter-clockwise.}
+\item{rpm}{The speed of the spinner, in clockwise revolutions per minute.
+Default is 10 RPM. Use 0 to disable rotation, or a negative value to rotate
+counter-clockwise.}
 
-\item{gap}{The gap between the blades of the spinner, in radians. Default is pi/5, or 36°.}
+\item{gap}{The gap between the blades of the spinner, in radians. Default is
+pi/5, or 36°.}
 
-\item{stroke}{The stroke thickness of the individual arcs that make up each blade of the spinner,
-in pixels. Default is 2.5.}
+\item{stroke}{The stroke thickness of the individual arcs that make up each
+blade of the spinner, in pixels. Default is 2.5.}
 
-\item{min_radius}{The radius of the spinner when there is only silence, in pixels. Default is 30.}
+\item{min_radius}{The radius of the spinner when there is only silence, in
+pixels. Default is 30.}
 
-\item{radius_compression}{The raw \verb{[-1, 1]} amplitude of the audio is compressed using
-\code{x^radius_compression} to make the spinner more responsive to quiet sounds. Default is 0.8.
-Set to 1.0 to disable compression. (Note that this only affects the visualization, not the audio playback.)}
+\item{radius_compression}{The raw \verb{[-1, 1]} amplitude of the audio is
+compressed using \code{x^radius_compression} to make the spinner more responsive
+to quiet sounds. Default is 0.8. Set to 1.0 to disable compression. (Note
+that this only affects the visualization, not the audio playback.)}
 
-\item{radius_overscan}{Use this parameter to set the maximum possible radius of the spinner,
-relative to the width/height of the container. Default is 1.1, meaning the spinner radius
-will be scaled such that at maximum amplitude, it will be 10\% larger than the container
-(the spinner blades will be clipped). Use larger values if you're expecting generally quiet audio.}
+\item{radius_overscan}{Use this parameter to set the maximum possible radius
+of the spinner, relative to the width/height of the container. Default is
+1.1, meaning the spinner radius will be scaled such that at maximum
+amplitude, it will be 10\% larger than the container (the spinner blades
+will be clipped). Use larger values if you're expecting generally quiet
+audio.}
 
-\item{steps}{The number of concentric arcs that make up each blade of the spinner, not including
-the central circle. Default is 2.}
+\item{steps}{The number of concentric arcs that make up each blade of the
+spinner, not including the central circle. Default is 2.}
 
-\item{blades}{The number of blades in the spinner. Default is 3. Set to 0 to use concentric circles
-instead of blades.}
+\item{blades}{The number of blades in the spinner. Default is 3. Set to 0 to
+use concentric circles instead of blades.}
 
 \item{width}{The width of the spinner in CSS units. Default is "125px".}
 
 \item{height}{The height of the spinner in CSS units. Default is "125px".}
 
-\item{autoplay}{Whether to autoplay the audio. Default is TRUE. Note that many browsers will not
-allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a
-tooltip instructing the user to tap or click to start the audio.}
+\item{autoplay}{Whether to autoplay the audio. Default is TRUE. Note that
+many browsers will not allow autoplaying audio without user interaction; if
+autoplay fails, the spinner will show a tooltip instructing the user to tap
+or click to start the audio.}
 
-\item{autodismiss}{Whether to remove the spinner after the audio finishes playing. Default is FALSE.}
+\item{autodismiss}{Whether to remove the spinner after the audio finishes
+playing. Default is FALSE.}
 
-\item{class}{The class of the spinner. Default is "mx-auto" which horizontally centers the element
-inside its container (assuming Bootstrap is loaded).}
+\item{class}{The class of the spinner. Default is "mx-auto" which
+horizontally centers the element inside its container (assuming Bootstrap
+is loaded).}
 }
 \value{
-An HTML tag object representing the audio spinner.
+An HTML \verb{<audio-spinner>} tag object representing the audio spinner.
 }
 \description{
 Create an audio spinner
 }
 \examples{
+\dontshow{if (rlang::is_interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Using a URL
-audio_spinner(src = "https://example.com/audio.mp3", rpm = 15, width = "200px", height = "200px")
+audio_spinner(
+  src = "https://example.com/audio.mp3",
+  rpm = 15,
+  width = "200px",
+  height = "200px"
+)
 
 # Using a local file
-audio_spinner(con = "path/to/local/audio.mp3", rpm = 20, width = "150px", height = "150px")
-
+audio_spinner(
+  con = "path/to/local/audio.mp3",
+  rpm = 20,
+  width = "150px",
+  height = "150px"
+)
+\dontshow{\}) # examplesIf}
 }
