@@ -1,9 +1,9 @@
 Package: shinymedia
-Title: Multimedia Input/Output Controls for Shiny
+Title: Multimedia Input/Output Controls for 'Shiny'
 Version: 0.0.0.9000
 Authors@R: 
     person("Joe", "Cheng", , "joe@posit.co", role = c("aut", "cre"))
-Description: Extends the "Shiny" web framework with controls for
+Description: Extends the 'Shiny' web framework with controls for
     multimedia input/output.
 License: MIT + file LICENSE
 URL: https://github.com/posit-dev/shinymedia
