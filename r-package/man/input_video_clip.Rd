@@ -16,24 +16,24 @@ input_video_clip(
 \arguments{
 \item{inputId}{The input slot that will be used to access the value.}
 
-\item{reset_on_record}{Whether to reset the video clip input value when recording starts. If
-TRUE, the video clip input value will become NULL at the moment the
-Record button is pressed; if FALSE, the value will not change until
-the user stops recording. Default is TRUE.}
+\item{reset_on_record}{Whether to reset the video clip input value when
+recording starts. If TRUE, the video clip input value will become NULL at
+the moment the Record button is pressed; if FALSE, the value will not
+change until the user stops recording. Default is TRUE.}
 
-\item{mime_type}{The MIME type of the video clip to record. By default, this is NULL,
-which means the browser will choose a suitable MIME type for video
+\item{mime_type}{The MIME type of the video clip to record. By default, this
+is NULL, which means the browser will choose a suitable MIME type for video
 recording. Common MIME types include 'video/webm' and 'video/x-matroska'.}
 
-\item{video_bits_per_second}{The target video bitrate in bits per second. By default, this is NULL,
-which means the browser will choose a suitable bitrate for video
-recording (according to the spec, 2,500,000). This is only a
-suggestion; the browser may choose a different bitrate.}
+\item{video_bits_per_second}{The target video bitrate in bits per second. By
+default, this is NULL, which means the browser will choose a suitable
+bitrate for video recording (according to the spec, 2,500,000). This is
+only a suggestion; the browser may choose a different bitrate.}
 
-\item{audio_bits_per_second}{The target audio bitrate in bits per second. By default, this is NULL,
-which means the browser will choose a suitable bitrate for audio
-recording. This is only a suggestion; the browser may choose a different
-bitrate.}
+\item{audio_bits_per_second}{The target audio bitrate in bits per second. By
+default, this is NULL, which means the browser will choose a suitable
+bitrate for audio recording. This is only a suggestion; the browser may
+choose a different bitrate.}
 
 \item{...}{Additional parameters to pass to the underlying HTML tag.}
 }
@@ -42,4 +42,14 @@ A video clip input control that can be added to a UI definition.
 }
 \description{
 A video clip input control that records short videos from webcam
+}
+\examples{
+\dontshow{if (rlang::is_interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+input_video_clip(
+  "clip1",
+  video_bits_per_second = 256000,
+  audio_bits_per_second = 64000,
+  style = "width: 400px; max-width: 100\%;",
+)
+\dontshow{\}) # examplesIf}
 }
