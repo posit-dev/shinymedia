@@ -1,38 +1,22 @@
 [
   {
-    "objectID": "reference/audio_spinner.html",
-    "href": "reference/audio_spinner.html",
-    "title": "audio_spinner",
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
     "section": "",
-    "text": "audio_spinner(src, rpm=10, gap=math.pi / 5, stroke=2.5, min_radius=30, radius_compression=0.8, radius_overscan=1.1, steps=2, blades=3, width='125px', height='125px', autoplay=True, autodismiss=False, class_='mx-auto', **kwargs)\nCreate an audio spinner.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsrc\nstr\nThe source of the audio file. If this is a path to a file that exists, the file will be read and embedded as a base64-encoded data URL. Any other value will be passed through as the src attribute of the &lt;audio&gt; element.\nrequired\n\n\nrpm\nfloat\nThe speed of the spinner, in clockwise revolutions per minute. By default, it’s 10 RPM. Use 0 to disable rotation, or a negative value to rotate counter-clockwise.\n10\n\n\ngap\nfloat\nThe gap between the blades of the spinner, in radians. By default it’s π/5, or 36°.\nmath.pi / 5\n\n\nstroke\nfloat\nThe stroke thickness of the individual arcs that make up each blade of the spinner, in pixels. By default, 2.5.\n2.5\n\n\nmin_radius\nfloat\nThe radius of the spinner when there is only silence, in pixels; default is 30.\n30\n\n\nradius_compression\nfloat\nThe raw [-1, 1] amplitude of the audio is compressed using x^radius_compression to make the spinner more responsive to quiet sounds. By default, this is 0.8. Set to 1.0 to disable compression. (Note that this only affects the vizualization, not the audio playback.)\n0.8\n\n\nradius_overscan\nfloat\nUse this parameter to set the maximum possible radius of the spinner, relative to the width/height of the container. By default, this is 1.1, meaning the spinner radius will be scaled such that at maximum amplitude, it will be 10% larger than the container (the spinner blades will be clipped). Use larger values if you’re expecting generally quiet audio.\n1.1\n\n\nsteps\nfloat\nThe number of concetric arcs that make up each blade of the spinner, not including the central circle. By default, this is 2.\n2\n\n\nblades\nfloat\nThe number of blades in the spinner, by default 3. Set to 0 to use concentric circles instead of blades.\n3\n\n\nwidth\nstr\nThe width of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nheight\nstr\nThe height of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nautoplay\nbool\nWhether to autoplay the audio, by default True. Note that many browsers will not allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a tooltip instructing the user to tap or click to start the audio.\nTrue\n\n\nautodismiss\nbool\nWhether to remove the spinner after the audio finishes playing, by default False.\nFalse\n\n\nclass_\nstr\nThe class of the spinner, by default “mx-auto” which horizontally centers the element inside its container (assuming Bootstrap is loaded).\n'mx-auto'\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the spinner, to be added directly to the &lt;audio-spinner&gt; element.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nui.Tag\nThe audio spinner tag.",
+    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
     "crumbs": [
-      "Function reference",
-      "Media components",
-      "audio_spinner"
+      "Function reference"
     ]
   },
   {
-    "objectID": "reference/audio_spinner.html#parameters",
-    "href": "reference/audio_spinner.html#parameters",
-    "title": "audio_spinner",
+    "objectID": "reference/index.html#media-components",
+    "href": "reference/index.html#media-components",
+    "title": "Function reference",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsrc\nstr\nThe source of the audio file. If this is a path to a file that exists, the file will be read and embedded as a base64-encoded data URL. Any other value will be passed through as the src attribute of the &lt;audio&gt; element.\nrequired\n\n\nrpm\nfloat\nThe speed of the spinner, in clockwise revolutions per minute. By default, it’s 10 RPM. Use 0 to disable rotation, or a negative value to rotate counter-clockwise.\n10\n\n\ngap\nfloat\nThe gap between the blades of the spinner, in radians. By default it’s π/5, or 36°.\nmath.pi / 5\n\n\nstroke\nfloat\nThe stroke thickness of the individual arcs that make up each blade of the spinner, in pixels. By default, 2.5.\n2.5\n\n\nmin_radius\nfloat\nThe radius of the spinner when there is only silence, in pixels; default is 30.\n30\n\n\nradius_compression\nfloat\nThe raw [-1, 1] amplitude of the audio is compressed using x^radius_compression to make the spinner more responsive to quiet sounds. By default, this is 0.8. Set to 1.0 to disable compression. (Note that this only affects the vizualization, not the audio playback.)\n0.8\n\n\nradius_overscan\nfloat\nUse this parameter to set the maximum possible radius of the spinner, relative to the width/height of the container. By default, this is 1.1, meaning the spinner radius will be scaled such that at maximum amplitude, it will be 10% larger than the container (the spinner blades will be clipped). Use larger values if you’re expecting generally quiet audio.\n1.1\n\n\nsteps\nfloat\nThe number of concetric arcs that make up each blade of the spinner, not including the central circle. By default, this is 2.\n2\n\n\nblades\nfloat\nThe number of blades in the spinner, by default 3. Set to 0 to use concentric circles instead of blades.\n3\n\n\nwidth\nstr\nThe width of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nheight\nstr\nThe height of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nautoplay\nbool\nWhether to autoplay the audio, by default True. Note that many browsers will not allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a tooltip instructing the user to tap or click to start the audio.\nTrue\n\n\nautodismiss\nbool\nWhether to remove the spinner after the audio finishes playing, by default False.\nFalse\n\n\nclass_\nstr\nThe class of the spinner, by default “mx-auto” which horizontally centers the element inside its container (assuming Bootstrap is loaded).\n'mx-auto'\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the spinner, to be added directly to the &lt;audio-spinner&gt; element.\n{}",
+    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
     "crumbs": [
-      "Function reference",
-      "Media components",
-      "audio_spinner"
-    ]
-  },
-  {
-    "objectID": "reference/audio_spinner.html#returns",
-    "href": "reference/audio_spinner.html#returns",
-    "title": "audio_spinner",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nui.Tag\nThe audio spinner tag.",
-    "crumbs": [
-      "Function reference",
-      "Media components",
-      "audio_spinner"
+      "Function reference"
     ]
   },
   {
@@ -107,23 +91,39 @@
     "text": "Footnotes\n\n\nAudio credit: LibriVox recording of Essai sur les révolutions suivi des Etudes historiques by François-René de Chateaubriand, public domain.↩︎"
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Function reference",
+    "objectID": "reference/audio_spinner.html",
+    "href": "reference/audio_spinner.html",
+    "title": "audio_spinner",
     "section": "",
-    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
+    "text": "audio_spinner(src, rpm=10, gap=math.pi / 5, stroke=2.5, min_radius=30, radius_compression=0.8, radius_overscan=1.1, steps=2, blades=3, width='125px', height='125px', autoplay=True, autodismiss=False, class_='mx-auto', **kwargs)\nCreate an audio spinner.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsrc\nstr\nThe source of the audio file. If this is a path to a file that exists, the file will be read and embedded as a base64-encoded data URL. Any other value will be passed through as the src attribute of the &lt;audio&gt; element.\nrequired\n\n\nrpm\nfloat\nThe speed of the spinner, in clockwise revolutions per minute. By default, it’s 10 RPM. Use 0 to disable rotation, or a negative value to rotate counter-clockwise.\n10\n\n\ngap\nfloat\nThe gap between the blades of the spinner, in radians. By default it’s π/5, or 36°.\nmath.pi / 5\n\n\nstroke\nfloat\nThe stroke thickness of the individual arcs that make up each blade of the spinner, in pixels. By default, 2.5.\n2.5\n\n\nmin_radius\nfloat\nThe radius of the spinner when there is only silence, in pixels; default is 30.\n30\n\n\nradius_compression\nfloat\nThe raw [-1, 1] amplitude of the audio is compressed using x^radius_compression to make the spinner more responsive to quiet sounds. By default, this is 0.8. Set to 1.0 to disable compression. (Note that this only affects the vizualization, not the audio playback.)\n0.8\n\n\nradius_overscan\nfloat\nUse this parameter to set the maximum possible radius of the spinner, relative to the width/height of the container. By default, this is 1.1, meaning the spinner radius will be scaled such that at maximum amplitude, it will be 10% larger than the container (the spinner blades will be clipped). Use larger values if you’re expecting generally quiet audio.\n1.1\n\n\nsteps\nfloat\nThe number of concetric arcs that make up each blade of the spinner, not including the central circle. By default, this is 2.\n2\n\n\nblades\nfloat\nThe number of blades in the spinner, by default 3. Set to 0 to use concentric circles instead of blades.\n3\n\n\nwidth\nstr\nThe width of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nheight\nstr\nThe height of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nautoplay\nbool\nWhether to autoplay the audio, by default True. Note that many browsers will not allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a tooltip instructing the user to tap or click to start the audio.\nTrue\n\n\nautodismiss\nbool\nWhether to remove the spinner after the audio finishes playing, by default False.\nFalse\n\n\nclass_\nstr\nThe class of the spinner, by default “mx-auto” which horizontally centers the element inside its container (assuming Bootstrap is loaded).\n'mx-auto'\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the spinner, to be added directly to the &lt;audio-spinner&gt; element.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nui.Tag\nThe audio spinner tag.",
     "crumbs": [
-      "Function reference"
+      "Function reference",
+      "Media components",
+      "audio_spinner"
     ]
   },
   {
-    "objectID": "reference/index.html#media-components",
-    "href": "reference/index.html#media-components",
-    "title": "Function reference",
+    "objectID": "reference/audio_spinner.html#parameters",
+    "href": "reference/audio_spinner.html#parameters",
+    "title": "audio_spinner",
     "section": "",
-    "text": "Components to be used with Shiny for media capture/playback.\n\n\n\ninput_video_clip\nA video clip input control that records short videos from webcam.\n\n\naudio_spinner\nCreate an audio spinner.",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsrc\nstr\nThe source of the audio file. If this is a path to a file that exists, the file will be read and embedded as a base64-encoded data URL. Any other value will be passed through as the src attribute of the &lt;audio&gt; element.\nrequired\n\n\nrpm\nfloat\nThe speed of the spinner, in clockwise revolutions per minute. By default, it’s 10 RPM. Use 0 to disable rotation, or a negative value to rotate counter-clockwise.\n10\n\n\ngap\nfloat\nThe gap between the blades of the spinner, in radians. By default it’s π/5, or 36°.\nmath.pi / 5\n\n\nstroke\nfloat\nThe stroke thickness of the individual arcs that make up each blade of the spinner, in pixels. By default, 2.5.\n2.5\n\n\nmin_radius\nfloat\nThe radius of the spinner when there is only silence, in pixels; default is 30.\n30\n\n\nradius_compression\nfloat\nThe raw [-1, 1] amplitude of the audio is compressed using x^radius_compression to make the spinner more responsive to quiet sounds. By default, this is 0.8. Set to 1.0 to disable compression. (Note that this only affects the vizualization, not the audio playback.)\n0.8\n\n\nradius_overscan\nfloat\nUse this parameter to set the maximum possible radius of the spinner, relative to the width/height of the container. By default, this is 1.1, meaning the spinner radius will be scaled such that at maximum amplitude, it will be 10% larger than the container (the spinner blades will be clipped). Use larger values if you’re expecting generally quiet audio.\n1.1\n\n\nsteps\nfloat\nThe number of concetric arcs that make up each blade of the spinner, not including the central circle. By default, this is 2.\n2\n\n\nblades\nfloat\nThe number of blades in the spinner, by default 3. Set to 0 to use concentric circles instead of blades.\n3\n\n\nwidth\nstr\nThe width of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nheight\nstr\nThe height of the spinner in CSS units, by default “125px”.\n'125px'\n\n\nautoplay\nbool\nWhether to autoplay the audio, by default True. Note that many browsers will not allow autoplaying audio without user interaction; if autoplay fails, the spinner will show a tooltip instructing the user to tap or click to start the audio.\nTrue\n\n\nautodismiss\nbool\nWhether to remove the spinner after the audio finishes playing, by default False.\nFalse\n\n\nclass_\nstr\nThe class of the spinner, by default “mx-auto” which horizontally centers the element inside its container (assuming Bootstrap is loaded).\n'mx-auto'\n\n\n**kwargs\nTagAttrValue\nAdditional attributes for the spinner, to be added directly to the &lt;audio-spinner&gt; element.\n{}",
     "crumbs": [
-      "Function reference"
+      "Function reference",
+      "Media components",
+      "audio_spinner"
+    ]
+  },
+  {
+    "objectID": "reference/audio_spinner.html#returns",
+    "href": "reference/audio_spinner.html#returns",
+    "title": "audio_spinner",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nui.Tag\nThe audio spinner tag.",
+    "crumbs": [
+      "Function reference",
+      "Media components",
+      "audio_spinner"
     ]
   }
 ]
