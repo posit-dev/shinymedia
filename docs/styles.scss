@@ -1,0 +1,38 @@
+/*-- scss:rules --*/
+.card.card-as-link {
+    position: relative;
+
+    /* Expand the link to fill the entire card */
+    a.card-primary-link:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+    // NOTE: maybe should swap :before and :after to ensure the arrow is
+    //       top-aligned when used in headers.
+    a.card-primary-link:after {
+        content: ' \2192';
+        display: inline-block;
+        margin-left: 0.25rem;
+        transition: transform 200ms ease-in-out;
+    }
+
+    a.card-primary-link.card-header-link:after {
+        position: absolute;
+        right: var(--bs-card-spacer-x, 1rem);
+    }
+
+    &:hover a.card-primary-link:after {
+        transform: translateX(5px);
+    }
+}
+
+.card-img-logo {
+    margin-inline: auto;
+    max-height: 200px;
+    max-width: 200px;
+}

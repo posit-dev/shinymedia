@@ -74,10 +74,10 @@ input_video_clip(
 library(shinymedia)
 
 input_video_clip(
-  "clip1",
-  video_bits_per_second=256000,
-  audio_bits_per_second=64000,
-  style="width: 400px; max-width: 100%;",
+	"clip1",
+	video_bits_per_second = 256000,
+	audio_bits_per_second = 64000,
+	style = "width: 400px; max-width: 100%;",
 )
 ```
 
@@ -121,7 +121,7 @@ audio_spinner(
 
 :::
 
-There are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the [reference docs](reference/audio_spinner.qmd) for more information on these and other options.
+There are many options for customizing the appearance and behavior of the spinner. Here is an example with a dark background, faster rotation, more blades, and a thinner stroke. See the reference docs for [Python](reference/python/audio_spinner.qmd) or [R](reference/r/audio_spinner.qmd) for more information on these and other options.
 
 ::: {.panel-tabset group="lang"}
 
