@@ -23,7 +23,6 @@ jobs:
           python-version: "3.10"
           cache: "pip"
       - run: pip install ".[docs]"
-        working-directory: ./pkg-py
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
