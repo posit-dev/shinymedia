@@ -2,15 +2,22 @@
 requires = ["setuptools>=60", "wheel", "setuptools_scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools_scm]
-root = ".."
+[tool.setuptools.packages.find]
+where = ["pkg-py"]
+include = ["shinymedia*"]
+
+[tool.setuptools.package-data]
+shinymedia = ["*"]
+
+[tool.setuptools]
+build-dir = "pkg-py/dist"
 
 [project]
 name = "shinymedia"
 description = "Extends the Shiny web framework with controls for multimedia input/output."
-readme = "README.md"
+readme = "pkg-py/README.md"
 keywords = ["video", "audio", "shiny"]
-license.file = "LICENSE"
+license = { file = "pkg-py/LICENSE" }
 authors = [
     { name = "Joe Cheng", email = "joe@posit.co" },
 ]
@@ -46,9 +53,11 @@ docs = [
     "jupyter",
     "quartodoc",
 ]
+
 [project.urls]
 homepage = "https://github.com/posit-dev/shinymedia"
 documentation = "https://posit-dev.github.io/shinymedia/"
+Source = "https://github.com/posit-dev/shinymedia/tree/main/pkg-py"
 
 [tool.flake8]
 exclude = ["docs", ".venv", "tests/*"]

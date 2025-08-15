@@ -22,7 +22,7 @@ pip install shinymedia
 Or to install the latest from GitHub:
 
 ```bash
-pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia?subdirectory=pkg-py"
+pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia"
 ```
 
 ### R
@@ -56,7 +56,7 @@ After making changes to the TypeScript code in srcts, run `npm run build` to com
 To develop the Python package, you can install it in editable mode:
 
 ```bash
-pip install -e pkg-py
+pip install -e .
 ```
 
 ### Documentation
@@ -64,7 +64,7 @@ pip install -e pkg-py
 To build the documentation, first install additional dependencies:
 
 ```bash
-pip install -e "pkg-py[docs]"
+pip install -e ".[docs]"
 ```
 
 Then:
