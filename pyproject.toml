@@ -9,9 +9,6 @@ include = ["shinymedia*"]
 [tool.setuptools.package-data]
 shinymedia = ["*"]
 
-[tool.setuptools]
-build-dir = "pkg-py/dist"
-
 [project]
 name = "shinymedia"
 description = "Extends the Shiny web framework with controls for multimedia input/output."
