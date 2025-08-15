@@ -70,7 +70,7 @@ pip install -e "pkg-py[docs]"
 Then:
 
 ```bash
-cd quarto
+cd docs
 quartodoc build  # Build reference docs
 quarto preview   # Serve the docs locally
 ```
