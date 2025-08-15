@@ -51,12 +51,12 @@ async function build(ctx) {
 }
 
 async function postBuild() {
-  await fs.cp("dist", "python-package/shinymedia/dist", {
+  await fs.cp("dist", "pkg-py/shinymedia/dist", {
     recursive: true,
     errorOnExist: false,
     preserveTimestamps: true,
   });
-  await fs.cp("dist", "r-package/inst/dist", {
+  await fs.cp("dist", "pkg-r/inst/dist", {
     recursive: true,
     errorOnExist: false,
     preserveTimestamps: true,
