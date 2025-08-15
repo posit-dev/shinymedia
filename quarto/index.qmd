@@ -99,7 +99,7 @@ Click the icon to play.[^1]
 from shinymedia import audio_spinner
 
 audio_spinner(
-  src='mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  src='mp3/the_hour_of_magic.mp3',
   width="125px",
   height="125px",
   autoplay=False,
@@ -112,7 +112,7 @@ audio_spinner(
 library(shinymedia)
 
 audio_spinner(
-  con = 'mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  con = 'mp3/the_hour_of_magic.mp3',
   width = "125px",
   height = "125px",
   autoplay = FALSE,
@@ -131,7 +131,7 @@ There are many options for customizing the appearance and behavior of the spinne
 from shinymedia import audio_spinner
 
 audio_spinner(
-  src='mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  src='mp3/the_hour_of_magic.mp3',
   class_="bg-dark rounded-3 mx-auto",
   width="125px",
   height="125px",
@@ -150,7 +150,7 @@ audio_spinner(
 library(shinymedia)
 
 audio_spinner(
-  con = 'mp3/essaisurlesrevolutions_00_chateaubriand_64kb.mp3',
+  con = 'mp3/the_hour_of_magic.mp3',
   class = "bg-dark rounded-3 mx-auto",
   width = "125px",
   height = "125px",
