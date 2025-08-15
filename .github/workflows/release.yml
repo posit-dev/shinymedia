@@ -20,13 +20,12 @@ jobs:
         build
         --user
     - name: Build a binary wheel and a source tarball
-      working-directory: python-package
-      run: python3 -m build
+      run: python3 -m build --outdir pkg-py/dist
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
       with:
-        name: python-package-distributions
-        path: python-package/dist/
+        name: pkg-py-distributions
+        path: pkg-py/dist/
 
   publish-to-pypi:
     name: >-
@@ -45,7 +44,7 @@ jobs:
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
-        name: python-package-distributions
+        name: pkg-py-distributions
         path: dist/
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
@@ -66,7 +65,7 @@ jobs:
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
-        name: python-package-distributions
+        name: pkg-py-distributions
         path: dist/
     - name: Sign the dists with Sigstore
       uses: sigstore/gh-action-sigstore-python@v2.1.1
@@ -110,7 +109,7 @@ jobs:
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
-        name: python-package-distributions
+        name: pkg-py-distributions
         path: dist/
     - name: Publish distribution 📦 to TestPyPI
       uses: pypa/gh-action-pypi-publish@release/v1

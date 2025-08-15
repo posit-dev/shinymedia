@@ -26,7 +26,7 @@ pip install shinymedia
 Or to install the latest from GitHub:
 
 ```bash
-pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia?subdirectory=python-package"
+pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia"
 ```
 
 ## R
@@ -40,7 +40,7 @@ install.packages("shinymedia")  # Not published yet
 Or to install the latest from GitHub:
 
 ```bash
-pak::pak("posit-dev/shinymedia/r-package")
+pak::pak("posit-dev/shinymedia/pkg-r")
 ```
 
 :::

@@ -22,7 +22,7 @@ pip install shinymedia
 Or to install the latest from GitHub:
 
 ```bash
-pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia?subdirectory=python-package"
+pip install "shinymedia @ git+https://github.com/posit-dev/shinymedia"
 ```
 
 ### R
@@ -36,7 +36,7 @@ install.packages("shinymedia")  # Not published yet
 Or to install the latest from GitHub:
 
 ```bash
-pak::pak("posit-dev/shinymedia/r-package")
+pak::pak("posit-dev/shinymedia/pkg-r")
 ```
 
 ## Documentation
@@ -56,7 +56,7 @@ After making changes to the TypeScript code in srcts, run `npm run build` to com
 To develop the Python package, you can install it in editable mode:
 
 ```bash
-pip install -e python-package
+pip install -e .
 ```
 
 ### Documentation
@@ -64,13 +64,13 @@ pip install -e python-package
 To build the documentation, first install additional dependencies:
 
 ```bash
-pip install -e "python-package[docs]"
+pip install -e ".[docs]"
 ```
 
 Then:
 
 ```bash
-cd quarto
+cd docs
 quartodoc build  # Build reference docs
 quarto preview   # Serve the docs locally
 ```
